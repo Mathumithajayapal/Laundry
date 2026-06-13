@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>EcoWash | Sign Up – Eco-Friendly Dry Cleaning</title>
+
+  <!-- Google Fonts: Playfair Display + Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-gradient-start: #ffffff;
+      --bg-gradient-end: #ffffff;
+      --text-primary: #1a2d1f;
+      --text-secondary: #4a6b4c;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      /* EcoWash Brand Colors */
+      --accent-color: #2E7D32;
+      --accent-hover: #1B5E20;
+      --accent-light: #F1F8E9;
+      
+      --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+      --border-light: #e8f0e4;
+      --input-bg: #ffffff;
+      --error-color: #e74c3c;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+      
+      /* EXACT INPUT STYLE PRESERVED */
+      --input-padding-top: 9px;
+      --input-padding-bottom: 9px;
+      --input-padding-left: 16px;      
+      --input-padding-right: 48px;      
+      --input-font-size: 0.85rem;
+      --input-radius: 60px;
+    }
+
+    /* DARK MODE */
+    body.dark {
+      --bg-gradient-start: #000000;
+      --bg-gradient-end: #000000;
+      --text-primary: #ebf5ee;
+      --text-secondary: #a0c0a5;
+      --card-bg: #000000;
+      --accent-color: #4CAF50;
+      --accent-hover: #66BB6A;
+      --accent-light: #1a2a1a;
+      --border-light: #2a2a2a;
+      --input-bg: #111111;
+      --shadow-md: 0 20px 35px -8px rgba(0, 0, 0, 0.6);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      padding-top: 60px; /* Extra padding for taller signup form */
+      padding-bottom: 40px;
+      transition: background 0.3s ease, color 0.2s;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body.dark {
+      background: #000000;
+    }
+
+    .auth-container {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      animation: fadeInUp 0.5s ease-out;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(15px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .auth-card {
+      background: var(--card-bg);
+      border-radius: 36px;
+      padding: 32px 34px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(46, 125, 50, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    body.dark .auth-card {
+      border: 1px solid rgba(76, 175, 80, 0.35);
+      box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(76, 175, 80, 0.1);
+    }
+
+    .logo-section {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    .logo-icon {
+      font-size: 2.5rem;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+      color: var(--accent-color);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(-3px);}
+    }
+
+    .logo-text {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, var(--accent-color), var(--accent-hover));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text a {
+      text-decoration: none;
+      background: linear-gradient(45deg, var(--accent-color), var(--accent-hover));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card-title {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .card-title h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .card-title p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* INPUT STRUCTURE PRESERVED */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+    }
+
+    .input-label i {
+      margin-right: 8px;
+      color: var(--accent-color);
+      width: 20px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: var(--input-padding-top) var(--input-padding-right) var(--input-padding-bottom) var(--input-padding-left);
+      font-size: var(--input-font-size);
+      font-family: var(--font-body);
+      font-weight: 500;
+      border: 2px solid var(--border-light);
+      border-radius: var(--input-radius);
+      background: var(--input-bg);
+      color: var(--text-primary);
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.4, 1);
+      outline: none;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+    }
+
+    body.dark .input-field {
+      border-color: #3a3a3a;
+      background: #0c0c0c;
+    }
+
+    body.dark .input-field:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      transition: color 0.2s;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+
+    .password-toggle:hover {
+      color: var(--accent-color);
+      background: rgba(46, 125, 50, 0.1);
+    }
+
+    .options-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 0.8rem;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      line-height: 1.4;
+    }
+
+    .checkbox-label input {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--accent-color);
+      margin-top: 2px;
+    }
+
+    .checkbox-label a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .checkbox-label a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .auth-btn {
+      width: 100%;
+      background: var(--accent-color);
+      border: none;
+      padding: 0;
+      height: 52px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      margin-bottom: 22px;
+    }
+
+    .auth-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(46, 125, 50, 0.3);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 20px 0;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .divider span {
+      padding: 0 14px;
+    }
+
+    .social-login {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .social-btn {
+      flex: 1;
+      background: transparent;
+      border: 2px solid var(--border-light);
+      border-radius: 60px;
+      padding: 0;
+      height: 48px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-weight: 500;
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent-color);
+      background: rgba(46, 125, 50, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .social-btn i { font-size: 1.1rem; }
+    .social-btn.google i { color: #db4437; }
+    .social-btn.apple i { color: #000; }
+    body.dark .social-btn.apple i { color: #fff; }
+
+    .switch-link {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .switch-link a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .switch-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* TOP CONTROLS */
+    .top-controls {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      display: flex;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    body[dir="rtl"] .top-controls {
+      right: auto;
+      left: 24px;
+    }
+
+    .control-icon {
+      background: var(--card-bg);
+      border: 1px solid rgba(46, 125, 50, 0.4);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    body.dark .control-icon {
+      background: #000000;
+      border-color: rgba(76, 175, 80, 0.5);
+    }
+
+    .control-icon:hover {
+      transform: scale(1.03);
+      border-color: var(--accent-color);
+      background: rgba(46, 125, 50, 0.15);
+    }
+
+    .control-icon i {
+      font-size: 1rem;
+      color: var(--accent-color);
+    }
+
+    .rtl-text-btn {
+      background: var(--card-bg);
+      border: 1px solid rgba(46, 125, 50, 0.4);
+      padding: 0 12px;
+      height: 38px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      font-weight: 600;
+      font-size: 0.7rem;
+      font-family: var(--font-body);
+      color: var(--accent-color);
+      gap: 6px;
+      line-height: 1;
+      letter-spacing: normal;
+    }
+
+    body.dark .rtl-text-btn {
+      background: #000000;
+      border-color: rgba(76, 175, 80, 0.5);
+    }
+
+    .rtl-text-btn:hover {
+      transform: scale(1.02);
+      border-color: var(--accent-color);
+      background: rgba(46, 125, 50, 0.15);
+    }
+
+    .error-message {
+      background: rgba(231, 76, 60, 0.12);
+      border-left: 4px solid #e74c3c;
+      padding: 10px 14px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
+      color: #e74c3c;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .error-message.show {
+      display: flex;
+    }
+
+    /* RTL SUPPORT */
+    body[dir="rtl"] .input-field {
+      padding: var(--input-padding-top) var(--input-padding-left) var(--input-padding-bottom) var(--input-padding-right);
+    }
+
+    body[dir="rtl"] .password-toggle {
+      right: auto;
+      left: 18px;
+    }
+
+    body[dir="rtl"] .input-label i {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+
+    body[dir="rtl"] .social-btn {
+      flex-direction: row-reverse;
+    }
+
+    body[dir="rtl"] .logo-wrapper {
+      flex-direction: row-reverse;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 550px) {
+      .auth-card { padding: 26px 24px; }
+      :root {
+        --input-padding-left: 14px;
+        --input-padding-right: 44px;
+      }
+      .auth-btn { height: 50px; }
+      .social-btn { height: 46px; }
+    }
+
+    @media (max-width: 450px) {
+      .auth-card { padding: 22px 20px; }
+      .logo-text { font-size: 1.7rem; }
+      .card-title h1 { font-size: 1.5rem; }
+      :root {
+        --input-padding-left: 12px;
+        --input-padding-right: 44px;
+      }
+      .auth-btn { height: 48px; }
+      .social-btn { height: 44px; }
+    }
+
+    @media (max-width: 420px) {
+      .top-controls {
+        top: 6px;
+        right: 8px;
+        gap: 6px;
+      }
+      body[dir="rtl"] .top-controls {
+        left: 8px;
+        right: auto;
+      }
+      .control-icon, .rtl-text-btn { transform: scale(0.96); }
+      .auth-container { margin-top: 30px; }
+    }
+
+    @media (max-width: 380px) {
+      .auth-card { padding: 18px 16px; }
+      .social-btn span { display: none; }
+      .social-btn { gap: 6px; }
+      :root {
+        --input-padding-left: 12px;
+        --input-padding-right: 40px;
+      }
+    }
+
+    /* BUTTON LOADING STATE */
+    .auth-btn.loading {
+      pointer-events: none;
+      opacity: 0.85;
+    }
+    .auth-btn.loading i {
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg);}
+      to { transform: rotate(360deg);}
+    }
+
+    /* ECOWASH BACKGROUND DECOR */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle at 10% 20%, rgba(46, 125, 50, 0.04) 0%, transparent 70%);
+      z-index: 1;
+    }
+    body.dark::before {
+      background-image: radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.08) 0%, transparent 80%);
+    }
+    body::after {
+      content: '🍃';
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1.6rem;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 1;
+    }
+    body.dark::after { opacity: 0.1; }
+    body[dir="rtl"]::after { left: auto; right: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="top-controls">
+  <div class="control-icon" id="themeToggle" title="Dark/Light Mode">
+    <i class="fas fa-moon"></i>
+  </div>
+  <div class="rtl-text-btn" id="rtlToggleBtn">
+    <span id="rtlBtnText">RTL</span>
+  </div>
+</div>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="logo-section">
+      <div class="logo-wrapper" id="logoDoubleClick">
+        <i class="fas fa-leaf logo-icon"></i>
+        <span class="logo-text"><a href="index.html">EcoWash</a></span>
+      </div>
+    </div>
+
+    <div class="card-title">
+      <h1>Create an Account</h1>
+      <p>Join our eco-friendly laundry community</p>
+    </div>
+
+    <div id="signupError" class="error-message">
+      <i class="fas fa-exclamation-triangle"></i> <span id="errorText">Error message goes here</span>
+    </div>
+
+    <form id="signupForm">
+      <!-- Full Name -->
+      <div class="form-group">
+        <label class="input-label"><i class="fas fa-user"></i> Full Name</label>
+        <div class="input-wrapper">
+          <input type="text" id="nameInput" class="input-field" placeholder="John Doe" required>
+        </div>
+      </div>
+
+      <!-- Email Address -->
+      <div class="form-group">
+        <label class="input-label"><i class="fas fa-envelope"></i> Email Address</label>
+        <div class="input-wrapper">
+          <input type="email" id="emailInput" class="input-field" placeholder="hello@ecowash.com" required autocomplete="email">
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="input-label"><i class="fas fa-lock"></i> Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="passwordInput" class="input-field" placeholder="••••••••" required autocomplete="new-password">
+          <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">
+            <i class="far fa-eye-slash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label class="input-label"><i class="fas fa-lock"></i> Confirm Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="confirmPasswordInput" class="input-field" placeholder="••••••••" required autocomplete="new-password">
+          <button type="button" class="password-toggle" id="toggleConfirmPassword" aria-label="Show password">
+            <i class="far fa-eye-slash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="options-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="termsCheck" required> 
+          <span>I agree to the <a href="terms.html">Terms of Service</a> & <a href="privacy.html">Privacy Policy</a></span>
+        </label>
+      </div>
+
+      <button type="submit" class="auth-btn" id="signupBtn">
+        Create Account
+      </button>
+    </form>
+
+    <div class="divider">
+      <span>or sign up with</span>
+    </div>
+
+    <div class="social-login">
+      <button class="social-btn google" id="googleLogin">
+        <i class="fab fa-google"></i> <span>Google</span>
+      </button>
+      <button class="social-btn apple" id="appleLogin">
+        <i class="fab fa-apple"></i> <span>Apple</span>
+      </button>
+    </div>
+
+    <div class="switch-link">
+      Already have an account? <a href="login.html">Sign In <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const form = document.getElementById('signupForm');
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const confirmPasswordInput = document.getElementById('confirmPasswordInput');
+    const signupBtn = document.getElementById('signupBtn');
+    const errorDiv = document.getElementById('signupError');
+    const errorTextSpan = document.getElementById('errorText');
+    const termsCheck = document.getElementById('termsCheck');
+    
+    // Toggles
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const toggleConfirmPasswordBtn = document.getElementById('toggleConfirmPassword');
+    const themeToggle = document.getElementById('themeToggle');
+    const rtlToggleBtn = document.getElementById('rtlToggleBtn');
+    const rtlBtnTextSpan = document.getElementById('rtlBtnText');
+
+    function showError(message) {
+      errorTextSpan.innerText = message;
+      errorDiv.classList.add('show');
+      setTimeout(() => {
+        errorDiv.classList.remove('show');
+      }, 4000);
+    }
+
+    function showSuccessMessage(msg) {
+      alert(msg);
+      window.location.href = 'login.html'; 
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+      
+      if (!name) { showError('Please enter your full name'); return; }
+      if (!email) { showError('Please enter a valid email address'); return; }
+      if (password.length < 8) { showError('Password must be at least 8 characters long'); return; }
+      if (password !== confirmPassword) { showError('Passwords do not match'); return; }
+      if (!termsCheck.checked) { showError('You must agree to the Terms of Service'); return; }
+
+      // Simulate API call for Registration
+      signupBtn.classList.add('loading');
+      const originalHTML = signupBtn.innerHTML;
+      signupBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Creating Account...';
+      
+      setTimeout(() => {
+        signupBtn.classList.remove('loading');
+        signupBtn.innerHTML = originalHTML;
+        showSuccessMessage('🍃 Account created successfully!\nPlease sign in with your new credentials.');
+      }, 1200);
+    });
+
+    // Toggle Main Password Visibility
+    let passwordVisible = false;
+    togglePasswordBtn.addEventListener('click', () => {
+      passwordVisible = !passwordVisible;
+      passwordInput.type = passwordVisible ? 'text' : 'password';
+      togglePasswordBtn.innerHTML = passwordVisible ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+    });
+
+    // Toggle Confirm Password Visibility
+    let confirmPasswordVisible = false;
+    toggleConfirmPasswordBtn.addEventListener('click', () => {
+      confirmPasswordVisible = !confirmPasswordVisible;
+      confirmPasswordInput.type = confirmPasswordVisible ? 'text' : 'password';
+      toggleConfirmPasswordBtn.innerHTML = confirmPasswordVisible ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+    });
+
+    // Dark Mode Toggle
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector('i');
+    function setDarkMode(enabled) {
+      if (enabled) {
+        body.classList.add('dark');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('ecowash-dark', 'enabled');
+      } else {
+        body.classList.remove('dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('ecowash-dark', 'disabled');
+      }
+    }
+    const savedDark = localStorage.getItem('ecowash-dark');
+    setDarkMode(savedDark === 'enabled');
+    themeToggle.addEventListener('click', () => setDarkMode(!body.classList.contains('dark')));
+
+    // RTL Toggle
+    const htmlElem = document.documentElement;
+    function setDirection(direction) {
+      htmlElem.setAttribute('dir', direction);
+      localStorage.setItem('ecowash-dir', direction);
+      rtlBtnTextSpan.innerText = direction === 'rtl' ? 'LTR' : 'RTL';
+    }
+    const savedDir = localStorage.getItem('ecowash-dir');
+    setDirection(savedDir === 'rtl' ? 'rtl' : 'ltr');
+    rtlToggleBtn.addEventListener('click', () => {
+      const currentDir = htmlElem.getAttribute('dir');
+      setDirection(currentDir === 'rtl' ? 'ltr' : 'rtl');
+      rtlToggleBtn.style.transform = 'scale(0.96)';
+      setTimeout(() => { rtlToggleBtn.style.transform = ''; }, 150);
+    });
+
+    // Social Mockups
+    document.getElementById('googleLogin').addEventListener('click', () => alert('🔐 Sign up with Google coming soon.'));
+    document.getElementById('appleLogin').addEventListener('click', () => alert('🍎 Sign up with Apple coming soon.'));
+
+    // Easter egg auto-fill
+    const logoWrapper = document.querySelector('.logo-wrapper');
+    if (logoWrapper) {
+      logoWrapper.addEventListener('dblclick', () => {
+        nameInput.value = "John Doe";
+        emailInput.value = "hello@ecowash.com";
+        passwordInput.value = "ecowashsecure";
+        confirmPasswordInput.value = "ecowashsecure";
+        termsCheck.checked = true;
+        showError('🍃 Demo information filled!');
+        setTimeout(() => errorDiv.classList.remove('show'), 2500);
+      });
+    }
+  })();
+</script>
+</body>
+</html>

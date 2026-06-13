@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Offers - EcoWash Eco-Friendly Dry Cleaning</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            eco: {
+              light: '#F1F8E9',
+              DEFAULT: '#2E7D32',
+              dark: '#1B5E20',
+              accent: '#4CAF50'
+            }
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Dashed border animation for promo codes */
+    .promo-code {
+      background-image: linear-gradient(90deg, #2E7D32 50%, transparent 50%), linear-gradient(90deg, #2E7D32 50%, transparent 50%), linear-gradient(0deg, #2E7D32 50%, transparent 50%), linear-gradient(0deg, #2E7D32 50%, transparent 50%);
+      background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+      background-size: 10px 2px, 10px 2px, 2px 10px, 2px 10px;
+      background-position: left top, right bottom, left bottom, right top;
+      animation: border-dance 4s infinite linear;
+    }
+
+    .dark .promo-code {
+      background-image: linear-gradient(90deg, #4CAF50 50%, transparent 50%), linear-gradient(90deg, #4CAF50 50%, transparent 50%), linear-gradient(0deg, #4CAF50 50%, transparent 50%), linear-gradient(0deg, #4CAF50 50%, transparent 50%);
+    }
+
+    @keyframes border-dance {
+      0% {
+        background-position: left top, right bottom, left bottom, right top;
+      }
+
+      100% {
+        background-position: left 20px top, right 20px bottom, left bottom 20px, right top 20px;
+      }
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-black dark:bg-black dark:text-white font-sans min-h-screen flex flex-col antialiased">
+
+  <div id="mobileOverlay" class="fixed inset-0 bg-black/50 z-[998] hidden transition-opacity duration-300 opacity-0">
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 w-full z-[1000] bg-white dark:bg-black  shadow-md transition-colors duration-300">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+
+      <a href="index.html" class="flex items-center gap-2 group">
+        <i class="fas fa-leaf text-[28px] text-eco"></i>
+        <span
+          class="text-[25px] font-extrabold font-serif bg-gradient-to-r from-eco-dark to-eco-accent bg-clip-text text-transparent">EcoWash</span>
+      </a>
+
+      <ul class="hidden xl:flex items-center space-x-1">
+        <li class="relative group">
+          <a href="#"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] hover:text-eco hover:bg-eco/10 dark:hover:bg-eco/20 transition-all">
+            Home <i class="fas fa-caret-down text-sm transition-transform group-hover:rotate-180"></i>
+          </a>
+          <div class="absolute top-full start-0 pt-2 hidden group-hover:block">
+            <ul
+              class="bg-white dark:bg-gray-900 border border-eco-light dark:border-gray-800 shadow-xl rounded-2xl py-3 min-w-[210px] backdrop-blur-md">
+              <li><a href="index.html"
+                  class="block px-6 py-2.5 font-medium hover:bg-eco hover:text-white hover:ps-8 transition-all duration-300">Home1</a>
+              </li>
+              <li><a href="home2.html"
+                  class="block px-6 py-2.5 font-medium hover:bg-eco hover:text-white hover:ps-8 transition-all duration-300">Home2</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li><a href="about.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] hover:text-eco hover:bg-eco/10 dark:hover:bg-eco/20 transition-all">About</a>
+        </li>
+        <li><a href="offers.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] text-eco bg-eco/10 dark:bg-eco/20 transition-all">Offers</a>
+        </li>
+        <li><a href="service.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] hover:text-eco hover:bg-eco/10 dark:hover:bg-eco/20 transition-all">Services</a>
+        </li>
+        <li><a href="blog.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] hover:text-eco hover:bg-eco/10 dark:hover:bg-eco/20 transition-all">Blog</a>
+        </li>
+        <li><a href="pricing.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] hover:text-eco hover:bg-eco/10 dark:hover:bg-eco/20 transition-all">Pricing</a>
+        </li>
+        <li><a href="contact.html"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] hover:text-eco hover:bg-eco/10 dark:hover:bg-eco/20 transition-all">Contact</a>
+        </li>
+
+        <li class="relative group">
+          <a href="#"
+            class="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-[0.95rem] hover:text-eco hover:bg-eco/10 dark:hover:bg-eco/20 transition-all">
+            Dashboard <i class="fas fa-caret-down text-sm transition-transform group-hover:rotate-180"></i>
+          </a>
+          <div class="absolute top-full start-0 pt-2 hidden group-hover:block">
+            <ul
+              class="bg-white dark:bg-gray-900 border border-eco-light dark:border-gray-800 shadow-xl rounded-2xl py-3 min-w-[210px] backdrop-blur-md">
+              <li><a href="admin.html"
+                  class="block px-6 py-2.5 font-medium hover:bg-eco hover:text-white hover:ps-8 transition-all duration-300">Admin</a>
+              </li>
+              <li><a href="user.html"
+                  class="block px-6 py-2.5 font-medium hover:bg-eco hover:text-white hover:ps-8 transition-all duration-300">User</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle"
+          class="w-10 h-10 flex justify-center items-center rounded-full text-lg hover:bg-eco/10 hover:text-eco dark:hover:bg-gray-800 transition-all hidden xl:flex">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="rtlToggle"
+          class="px-4 h-10 rounded-full font-semibold text-sm hover:bg-eco/10 hover:text-eco dark:hover:bg-gray-800 transition-all hidden xl:flex items-center gap-2">
+          <span id="rtlButtonText">RTL</span>
+        </button>
+
+        <a href="login.html"
+          class="hidden xl:inline-flex items-center px-6 py-2 rounded-full font-semibold border-2 border-eco text-eco hover:bg-eco hover:text-white transition-all">Login</a>
+
+        <button id="hamburger"
+          class="xl:hidden w-10 h-10 flex justify-center items-center rounded-lg border-2 border-gray-300 dark:border-gray-700 text-lg hover:text-eco transition-all">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileNavMenu"
+    class="fixed top-0 end-0 h-full w-80 max-w-full bg-eco-light dark:bg-gray-900 z-[999] shadow-2xl border-s-4 border-eco transform translate-x-full rtl:-translate-x-full transition-transform duration-300 overflow-y-auto px-6 pt-[90px] pb-8">
+    <ul class="flex flex-col gap-3 w-full">
+      <li>
+        <button
+          class="mobile-dropdown-btn w-full flex items-center justify-between px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white group">
+          <div class="flex items-center gap-3">Home</div>
+          <i class="fas fa-caret-down transition-transform duration-300 caret-icon"></i>
+        </button>
+        <ul class="mobile-submenu hidden flex-col gap-2 ps-6 pe-4 mt-2">
+          <li><a href="index.html"
+              class="block px-4 py-2 rounded-lg font-medium hover:bg-eco/10 hover:text-eco transition-all">Home1</a>
+          </li>
+          <li><a href="home2.html"
+              class="block px-4 py-2 rounded-lg font-medium hover:bg-eco/10 hover:text-eco transition-all">Home2</a>
+          </li>
+        </ul>
+      </li>
+
+      <li><a href="about.html"
+          class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white">About</a>
+      </li>
+      <li><a href="offers.html"
+          class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-eco bg-eco text-white font-semibold transition-all">Offers</a>
+      </li>
+      <li><a href="service.html"
+          class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white">Service</a>
+      </li>
+      <li><a href="blog.html"
+          class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white">Blog</a>
+      </li>
+      <li><a href="pricing.html"
+          class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white">Pricing</a>
+      </li>
+      <li><a href="contact.html"
+          class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white">Contact</a>
+      </li>
+
+
+      <li>
+        <button
+          class="mobile-dropdown-btn w-full flex items-center justify-between px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white group">
+          <div class="flex items-center gap-3">Dashboard</div>
+          <i class="fas fa-caret-down transition-transform duration-300 caret-icon"></i>
+        </button>
+        <ul class="mobile-submenu hidden flex-col gap-2 ps-6 pe-4 mt-2">
+          <li><a href="user.html"
+              class="block px-4 py-2 rounded-lg font-medium hover:bg-eco/10 hover:text-eco transition-all">User</a></li>
+          <li><a href="admin.html"
+              class="block px-4 py-2 rounded-lg font-medium hover:bg-eco/10 hover:text-eco transition-all">Admin</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="mt-8 pt-6 border-t-2 border-eco-light dark:border-gray-800 flex flex-col gap-3">
+      <li><a href="login.html"
+          class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold transition-all hover:bg-eco hover:border-eco hover:text-white">Login</a>
+      </li>
+
+      <button id="mobileThemeToggle"
+        class="flex items-center justify-center gap-3 w-full px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold hover:bg-eco hover:text-white hover:border-eco transition-all group">
+        <i class="fas fa-moon text-[1.1rem] text-eco group-hover:text-white"></i> Dark Mode
+      </button>
+      <button id="mobileRtlToggle"
+        class="flex items-center justify-center gap-3 w-full px-5 py-3.5 rounded-2xl border-2 border-eco-light dark:border-gray-800 bg-white dark:bg-black  font-semibold hover:bg-eco hover:text-white hover:border-eco transition-all group">
+        <span id="mobileRtlButtonText">RTL Mode</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="flex-grow flex flex-col w-full pt-[88px]">
+
+    <!-- SECTION 1: Offers Hero Banner (Fixed Background Image / Parallax) -->
+    <section
+      class="relative w-full py-32 md:py-48 px-4 flex items-center justify-center overflow-hidden bg-fixed bg-cover bg-center bg-no-repeat"
+      style="background-image: url('Images/laundry (6).jpg">
+      <!-- Dark overlay -->
+      <div class="absolute inset-0 bg-gray-900/80 dark:bg-black/80 z-0"></div>
+
+      <div class="max-w-4xl mx-auto text-center relative z-10 text-white">
+        <span
+          class="inline-block py-1 px-4 rounded-full bg-eco text-white font-semibold text-sm mb-6 tracking-widest uppercase shadow-md">Exclusive
+          Deals</span>
+        <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+          Special <span class="text-eco-accent">Offers</span>
+        </h1>
+        <p class="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
+          Save money while saving the planet. Explore our latest promotions, bundle packages, and seasonal discounts.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Offers Grid -->
+    <section
+      class="py-24 px-4 w-full bg-gray-50 dark:bg-gray-900/50 relative z-20 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Current Promotions</h2>
+          <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Apply these codes at checkout or select the
+            relevant package in your dashboard to enjoy your green savings.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+          <!-- Offer Card 1 -->
+          <div
+            class="bg-white dark:bg-black  rounded-3xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row group">
+            <div class="w-full sm:w-2/5 relative h-48 sm:h-auto overflow-hidden">
+              <img src="Images/laundry (7).jpg" alt="Welcome Discount"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-0 left-0 bg-eco text-white font-bold px-4 py-2 rounded-br-2xl text-sm shadow-sm">
+                New Customer</div>
+            </div>
+            <div class="w-full sm:w-3/5 p-8 flex flex-col justify-center">
+              <h3 class="text-2xl font-bold font-serif mb-2">20% Off First Order</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">Experience our premium, non-toxic dry cleaning
+                and wash & fold delivery for less. Valid for any order size.</p>
+
+              <div class="flex items-center gap-4 mt-auto">
+                <div
+                  class="promo-code px-4 py-2 rounded text-eco dark:text-eco-accent font-mono font-bold tracking-widest bg-eco/5 dark:bg-eco/10">
+                  ECOFIRST20
+                </div>
+                <button
+                  class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:text-eco transition-colors"
+                  title="Copy Code">
+                  <i class="far fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Offer Card 2 -->
+          <div
+            class="bg-white dark:bg-black  rounded-3xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row group">
+            <div class="w-full sm:w-2/5 relative h-48 sm:h-auto overflow-hidden">
+              <img src="Images/laundry (8).jpg" alt="Shirt Bundle"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div
+                class="absolute top-0 left-0 bg-blue-600 text-white font-bold px-4 py-2 rounded-br-2xl text-sm shadow-sm">
+                Bundle Deal</div>
+            </div>
+            <div class="w-full sm:w-3/5 p-8 flex flex-col justify-center">
+              <h3 class="text-2xl font-bold font-serif mb-2">5 Shirts for $30</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">Look sharp for the office. Get 5 button-down
+                shirts washed, perfectly pressed, and delivered on hangers.</p>
+
+              <div class="flex items-center gap-4 mt-auto">
+                <div
+                  class="promo-code px-4 py-2 rounded text-eco dark:text-eco-accent font-mono font-bold tracking-widest bg-eco/5 dark:bg-eco/10">
+                  SHIRTS5
+                </div>
+                <button
+                  class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:text-eco transition-colors"
+                  title="Copy Code">
+                  <i class="far fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Offer Card 3 -->
+          <div
+            class="bg-white dark:bg-black  rounded-3xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row group">
+            <div class="w-full sm:w-2/5 relative h-48 sm:h-auto overflow-hidden">
+              <img src="Images/laundry (9).jpg" alt="Bedding Special"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div
+                class="absolute top-0 left-0 bg-yellow-500 text-white font-bold px-4 py-2 rounded-br-2xl text-sm shadow-sm">
+                Seasonal</div>
+            </div>
+            <div class="w-full sm:w-3/5 p-8 flex flex-col justify-center">
+              <h3 class="text-2xl font-bold font-serif mb-2">Free Comforter Clean</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">Spend $75 or more on standard dry cleaning and
+                get one large comforter or duvet cleaned absolutely free.</p>
+
+              <div class="flex items-center gap-4 mt-auto">
+                <div
+                  class="promo-code px-4 py-2 rounded text-eco dark:text-eco-accent font-mono font-bold tracking-widest bg-eco/5 dark:bg-eco/10">
+                  COZYBED
+                </div>
+                <button
+                  class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:text-eco transition-colors"
+                  title="Copy Code">
+                  <i class="far fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Offer Card 4 -->
+          <div
+            class="bg-white dark:bg-black  rounded-3xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row group">
+            <div class="w-full sm:w-2/5 relative h-48 sm:h-auto overflow-hidden">
+              <img src="Images/laundry (10).jpg" alt="Subscription"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div
+                class="absolute top-0 left-0 bg-purple-600 text-white font-bold px-4 py-2 rounded-br-2xl text-sm shadow-sm">
+                Subscription</div>
+            </div>
+            <div class="w-full sm:w-3/5 p-8 flex flex-col justify-center">
+              <h3 class="text-2xl font-bold font-serif mb-2">15% Off Weekly Plan</h3>
+              <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">Never worry about laundry day again. Subscribe to
+                our weekly pickup service and lock in a permanent 15% discount.</p>
+
+              <div class="flex items-center gap-4 mt-auto">
+                <a href="pricing.html#subscriptions"
+                  class="px-6 py-2 rounded bg-eco text-white font-bold text-sm hover:bg-eco-dark transition-all shadow-md hover:shadow-lg">
+                  View Plans
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Refer a Friend Banner -->
+    <section class="py-24 px-4 w-full bg-white dark:bg-black relative">
+      <div
+        class="max-w-6xl mx-auto bg-eco-light dark:bg-gray-900 rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row">
+
+        <div class="md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative z-10">
+          <div
+            class="w-16 h-16 rounded-full bg-white dark:bg-black text-eco flex items-center justify-center text-2xl mb-6 shadow-sm">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Give $20, Get $20</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-8 text-lg">
+            Share the gift of a greener, cleaner wardrobe. Send your unique referral link to a friend. They get $20 off
+            their first order, and you get a $20 credit once their order is complete!
+          </p>
+          <a href="login.html"
+            class="px-8 py-4 rounded-full bg-eco text-white font-bold text-lg hover:bg-eco-dark transition-all w-max shadow-md">
+            Get Your Referral Link
+          </a>
+        </div>
+
+        <div class="md:w-1/2 relative h-64 md:h-auto">
+          <!-- Geometric background shape -->
+          <div class="absolute inset-0 bg-eco opacity-10 dark:opacity-20 transform -skew-x-12 origin-top-left"></div>
+          <img src="Images/laundry (11).jpg" alt="Friends" class="w-full h-full object-cover relative z-0">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: How to Use Promo Codes (UPGRADED) -->
+    <section class="py-24 px-4 w-full bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <span
+            class="inline-block py-1 px-3 rounded-full bg-eco/10 text-eco font-bold text-sm mb-4 tracking-wide uppercase">Simple
+            Process</span>
+          <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">How to Claim Your Savings</h2>
+          <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Applying your eco-friendly discount is quick and
+            easy. Just follow these three simple steps.</p>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8 relative before:absolute before:hidden md:before:block before:top-1/2 before:left-0 before:w-full before:h-0.5 before:bg-gray-200 dark:before:bg-gray-800 before:-translate-y-1/2 z-0">
+
+          <!-- Step 1 -->
+          <div
+            class="relative z-10 bg-white dark:bg-black  p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:-translate-y-2 transition-transform duration-300">
+            <div
+              class="w-16 h-16 mx-auto bg-eco text-white rounded-full flex items-center justify-center mb-6 text-2xl font-bold shadow-lg border-4 border-white dark:border-gray-950">
+              1</div>
+            <h3 class="text-xl font-bold mb-3 font-serif">Copy the Code</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Find the perfect offer above and click the copy button
+              to save the promo code to your clipboard.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div
+            class="relative z-10 bg-white dark:bg-black  p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:-translate-y-2 transition-transform duration-300">
+            <div
+              class="w-16 h-16 mx-auto bg-eco text-white rounded-full flex items-center justify-center mb-6 text-2xl font-bold shadow-lg border-4 border-white dark:border-gray-950">
+              2</div>
+            <h3 class="text-xl font-bold mb-3 font-serif">Book a Service</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Select your desired laundry services, choose a pickup
+              time, and proceed to the checkout page.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div
+            class="relative z-10 bg-white dark:bg-black  p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 text-center hover:-translate-y-2 transition-transform duration-300">
+            <div
+              class="w-16 h-16 mx-auto bg-eco text-white rounded-full flex items-center justify-center mb-6 text-2xl font-bold shadow-lg border-4 border-white dark:border-gray-950">
+              3</div>
+            <h3 class="text-xl font-bold mb-3 font-serif">Apply & Save</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Paste the code into the "Promo Code" box right before
+              completing your payment to apply the discount.</p>
+          </div>
+
+        </div>
+
+        <!-- T&C Alert Box -->
+        <div
+          class="mt-12 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/50 rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row gap-4 items-start max-w-4xl mx-auto shadow-sm">
+          <i class="fas fa-info-circle text-yellow-600 dark:text-yellow-500 text-2xl mt-1 flex-shrink-0"></i>
+          <div>
+            <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">Terms & Conditions</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Only one promo code can be applied per order. Offers cannot be combined with other ongoing discounts or
+              subscription packages unless explicitly stated. The "Welcome Discount" is valid for first-time customers
+              only and is tied to the registered email address and physical pickup location.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Corporate & Bulk Volume Discounts (NEW SECTION) -->
+    <section class="py-24 px-4 w-full bg-white dark:bg-black border-t border-gray-100 dark:border-gray-900">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+
+        <!-- Image & Badge -->
+        <div class="lg:w-1/2 relative w-full">
+          <div class="absolute inset-0 bg-blue-100 dark:bg-blue-900/20 rounded-3xl transform rotate-3 scale-105"></div>
+          <img src="Images/laundry (12).jpg" alt="Corporate Laundry"
+            class="relative z-10 rounded-3xl shadow-xl w-full h-[400px] md:h-[500px] object-cover border-4 border-white dark:border-gray-900">
+
+          <div
+            class="absolute -bottom-6 -right-2 md:-bottom-8 md:-right-8 bg-white dark:bg-gray-900 p-4 md:p-6 rounded-2xl shadow-2xl z-20 border border-gray-100 dark:border-gray-800">
+            <div class="flex items-center gap-3 md:gap-4">
+              <div
+                class="w-10 h-10 md:w-12 md:h-12 bg-blue-600 rounded-full flex items-center justify-center text-white text-lg md:text-xl">
+                <i class="fas fa-building"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg md:text-xl">Save up to 30%</h4>
+                <p class="text-xs md:text-sm text-gray-500">On Bulk Orders</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="lg:w-1/2 mt-8 lg:mt-0">
+          <span
+            class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 font-bold text-sm mb-4 tracking-wide uppercase">B2B
+            & Large Families</span>
+          <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">Volume & Corporate Discounts</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-8 text-lg">
+            Running a business, managing an office, or simply tackling massive household laundry piles? We offer
+            exclusive volume pricing for bulk orders. Let us handle the linens, uniforms, and towels while you focus on
+            what you do best.
+          </p>
+
+          <ul class="space-y-6 mb-10">
+            <li class="flex items-start gap-4">
+              <div
+                class="mt-1 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 shadow-sm">
+                <i class="fas fa-check"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold mb-1">Custom Pricing Tiers</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Discounts scale automatically based on the total
+                  weight or volume of garments per month.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <div
+                class="mt-1 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 shadow-sm">
+                <i class="fas fa-check"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold mb-1">Dedicated Account Manager</h4>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Get priority scheduling, customized invoicing, and a
+                  direct line for immediate support.</p>
+              </div>
+            </li>
+          </ul>
+
+          <a href="contact.html"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition-all shadow-lg transform hover:-translate-y-1 w-full sm:w-auto">
+            Request a Custom Quote
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: Call To Action -->
+    <section class="w-full bg-eco relative overflow-hidden py-24 px-4">
+      <div
+        class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full transform translate-x-1/2 -translate-y-1/2 pointer-events-none">
+      </div>
+      <div
+        class="absolute bottom-0 left-0 w-80 h-80 bg-black opacity-5 rounded-full transform -translate-x-1/2 translate-y-1/2 pointer-events-none">
+      </div>
+
+      <div class="max-w-4xl mx-auto text-center relative z-10 text-white">
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Ready to claim your offer?</h2>
+        <p class="text-eco-light text-lg md:text-xl mb-10 opacity-90 max-w-2xl mx-auto">
+          Book your eco-friendly laundry pickup today and let our experts handle the rest.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <a href="book.html"
+            class="px-8 py-4 rounded-full bg-black text-white font-bold text-lg hover:bg-gray-800 transition-all shadow-lg transform hover:-translate-y-1 w-full sm:w-auto">
+            Book Now
+          </a>
+          <a href="services.html"
+            class="px-8 py-4 rounded-full border-2 border-white text-white font-bold text-lg hover:bg-white/10 transition-all w-full sm:w-auto backdrop-blur-sm">
+            View Services
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer
+    class="bg-white dark:bg-black text-black dark:text-white py-16 border-t border-gray-100 dark:border-gray-900 mt-auto w-full">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+        <div class="col-span-1">
+          <a href="index.html" class="flex items-center gap-2 group mb-6">
+            <i class="fas fa-leaf text-[28px] text-eco"></i>
+            <span
+              class="text-[25px] font-extrabold font-serif bg-gradient-to-r from-eco-dark to-eco-accent bg-clip-text text-transparent">EcoWash</span>
+          </a>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Providing premium, eco-friendly dry
+            cleaning and laundry delivery right to your door.</p>
+        </div>
+
+        <div>
+          <h3
+            class="font-serif font-bold text-eco uppercase tracking-widest text-sm mb-6 pb-2 border-b-2 border-eco inline-block">
+            Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="services.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">Our
+                Services</a></li>
+            <li><a href="pricing.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">Pricing</a>
+            </li>
+            <li><a href="how-it-works.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">How
+                it Works</a></li>
+            <li><a href="contact.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">Contact
+                Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="font-serif font-bold text-eco uppercase tracking-widest text-sm mb-6 pb-2 border-b-2 border-eco inline-block">
+            Resources</h3>
+          <ul class="space-y-3">
+            <li><a href="garment-care.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">Garment
+                Care Tips</a></li>
+            <li><a href="sustainability.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">Sustainability
+                Report</a></li>
+            <li><a href="terms.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">Terms
+                of Service</a></li>
+            <li><a href="privacy.html"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-block">Privacy
+                Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="font-serif font-bold text-eco uppercase tracking-widest text-sm mb-6 pb-2 border-b-2 border-eco inline-block">
+            Follow Us</h3>
+          <ul class="space-y-3">
+            <li><a href="#"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-flex items-center gap-2"><i
+                  class="fab fa-facebook-f w-4"></i> Facebook</a></li>
+            <li><a href="#"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-flex items-center gap-2"><i
+                  class="fab fa-instagram w-4"></i> Instagram</a></li>
+            <li><a href="#"
+                class="text-gray-600 dark:text-gray-400 hover:text-eco dark:hover:text-eco-accent hover:translate-x-2 transition-transform inline-flex items-center gap-2"><i
+                  class="fab fa-twitter w-4"></i> Twitter</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div
+        class="pt-8 border-t border-eco/30 flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+        <div>© 2026 EcoWash Laundry. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+      (function () {
+        // 1. Mobile Menu Logic
+        const hamburgerBtn = document.getElementById('hamburger');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+
+        function toggleMenu() {
+          const isClosed = mobileNavMenu.classList.contains('translate-x-full') || mobileNavMenu.classList.contains('rtl:-translate-x-full');
+
+          if (isClosed) {
+            // Open menu
+            mobileOverlay.classList.remove('hidden');
+            setTimeout(() => mobileOverlay.classList.remove('opacity-0'), 10);
+            mobileNavMenu.classList.remove('translate-x-full', 'rtl:-translate-x-full');
+            mobileNavMenu.classList.add('translate-x-0');
+            document.body.style.overflow = 'hidden';
+            hamburgerBtn.innerHTML = '<i class="fas fa-times"></i>';
+          } else {
+            // Close menu
+            mobileOverlay.classList.add('opacity-0');
+            setTimeout(() => mobileOverlay.classList.add('hidden'), 300);
+            mobileNavMenu.classList.remove('translate-x-0');
+            mobileNavMenu.classList.add('translate-x-full', 'rtl:-translate-x-full');
+            document.body.style.overflow = '';
+            hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+
+        hamburgerBtn?.addEventListener('click', toggleMenu);
+        mobileOverlay?.addEventListener('click', toggleMenu);
+
+        // 2. Mobile Dropdown Accordion Logic
+        document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const submenu = this.nextElementSibling;
+            const icon = this.querySelector('.caret-icon');
+
+            if (submenu.classList.contains('hidden')) {
+              submenu.classList.remove('hidden');
+              submenu.classList.add('flex');
+              icon.classList.add('rotate-180');
+            } else {
+              submenu.classList.add('hidden');
+              submenu.classList.remove('flex');
+              icon.classList.remove('rotate-180');
+            }
+          });
+        });
+
+        // 3. Dark Mode Toggle Logic
+        function toggleTheme() {
+          const htmlObj = document.documentElement;
+          htmlObj.classList.toggle('dark');
+          const isDark = htmlObj.classList.contains('dark');
+
+          document.querySelectorAll('#themeToggle i, #mobileThemeToggle i').forEach(el => {
+            if (el) el.className = isDark ? 'fas fa-sun text-yellow-400' : 'fas fa-moon';
+          });
+
+          const mobileToggleText = document.querySelector('#mobileThemeToggle');
+          if (mobileToggleText) {
+            mobileToggleText.innerHTML = isDark ? '<i class="fas fa-sun text-yellow-400 text-[1.1rem]"></i> Light Mode' : '<i class="fas fa-moon text-eco text-[1.1rem]"></i> Dark Mode';
+          }
+
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // 4. RTL Toggle Logic 
+        function toggleRTL() {
+          const doc = document.documentElement;
+          const isRTL = doc.getAttribute('dir') === 'rtl';
+
+          // Disable transitions temporarily to avoid layout shifts jumping
+          mobileNavMenu.style.transition = 'none';
+
+          doc.setAttribute('dir', isRTL ? 'ltr' : 'rtl');
+
+          const rtlSpan = document.getElementById('rtlButtonText');
+          const mobileRtlSpan = document.getElementById('mobileRtlButtonText');
+
+          if (rtlSpan) rtlSpan.textContent = isRTL ? 'RTL' : 'LTR';
+          if (mobileRtlSpan) mobileRtlSpan.textContent = isRTL ? 'RTL Mode' : 'LTR Mode';
+
+          localStorage.setItem('direction', isRTL ? 'ltr' : 'rtl');
+
+          // Force browser to register new position instantly
+          void mobileNavMenu.offsetWidth;
+
+          // Restore transitions
+          mobileNavMenu.style.transition = '';
+        }
+
+        // Attach Listeners
+        document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
+        document.getElementById('mobileThemeToggle')?.addEventListener('click', toggleTheme);
+        document.getElementById('rtlToggle')?.addEventListener('click', toggleRTL);
+        document.getElementById('mobileRtlToggle')?.addEventListener('click', toggleRTL);
+
+        // 5. Initialize from LocalStorage 
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.querySelectorAll('#themeToggle i').forEach(el => el.className = 'fas fa-sun text-yellow-400');
+          const mToggle = document.querySelector('#mobileThemeToggle');
+          if (mToggle) mToggle.innerHTML = '<i class="fas fa-sun text-yellow-400 text-[1.1rem]"></i> Light Mode';
+        }
+
+        if (localStorage.getItem('direction') === 'rtl') {
+          // Disable transition to prevent "flying" on load
+          if (mobileNavMenu) mobileNavMenu.style.transition = 'none';
+
+          document.documentElement.setAttribute('dir', 'rtl');
+
+          if (document.getElementById('rtlButtonText')) document.getElementById('rtlButtonText').textContent = 'LTR';
+          if (document.getElementById('mobileRtlButtonText')) document.getElementById('mobileRtlButtonText').textContent = 'LTR Mode';
+
+          // Re-enable transition after load
+          if (mobileNavMenu) {
+            void mobileNavMenu.offsetWidth;
+            mobileNavMenu.style.transition = '';
+          }
+
+        }
+      })();
+  </script>
+</body>
+
+</html>

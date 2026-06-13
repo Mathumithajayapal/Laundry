@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EcoWash | Admin Dashboard</title>
+
+  <!-- Google Fonts: Playfair Display + Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#2E7D32',  /* EcoWash Primary Green */
+              light: '#4CAF50',    /* EcoWash Accent Green */
+              dark: '#1B5E20',     /* EcoWash Dark Green */
+            },
+            darkBg: '#050505',
+            darkCard: '#121212',
+            sidebar: {
+              dark: '#0a0a0a',
+              light: '#f1f8e9',
+            },
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.4s ease-out',
+            'float-slow': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(15px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(46, 125, 50, 0.15);
+    }
+
+    .dark .glass-card {
+      background: rgba(18, 18, 18, 0.94);
+      border: 1px solid rgba(76, 175, 80, 0.2);
+    }
+
+    .brand-gradient-bg {
+      background: linear-gradient(125deg, #1B5E20 0%, #4CAF50 100%);
+      background-size: 200% auto;
+      transition: 0.3s;
+    }
+
+    .brand-gradient-bg:hover {
+      background-position: right center;
+    }
+
+    .sidebar-link {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .sidebar-link.active {
+      background: linear-gradient(90deg, rgba(46, 125, 50, 0.15) 0%, rgba(46, 125, 50, 0.05) 100%);
+      border-left: 3px solid #2E7D32;
+      color: #2E7D32;
+    }
+
+    .dark .sidebar-link.active {
+      background: linear-gradient(90deg, rgba(76, 175, 80, 0.25) 0%, rgba(76, 175, 80, 0.05) 100%);
+      border-left: 3px solid #4CAF50;
+      color: #4CAF50;
+    }
+
+    .sidebar-link:hover:not(.active) {
+      background: rgba(46, 125, 50, 0.08);
+      transform: translateX(4px);
+    }
+
+    [dir="rtl"] .sidebar-link:hover:not(.active) {
+      transform: translateX(-4px);
+    }
+
+    [dir="rtl"] .sidebar-link.active {
+      border-left: none;
+      border-right: 3px solid #2E7D32;
+    }
+
+    .dark [dir="rtl"] .sidebar-link.active {
+      border-right: 3px solid #4CAF50;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: #2E7D32;
+      border-radius: 10px;
+    }
+
+    [dir="rtl"] .sidebar-link {
+      text-align: right;
+    }
+
+    .mobile-sidebar-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 1023px) {
+      .sidebar-desktop {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      [dir="rtl"] .sidebar-desktop {
+        transform: translateX(100%);
+      }
+      .sidebar-desktop.open {
+        transform: translateX(0);
+      }
+    }
+
+    .content-panel {
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .dashboard-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Dark Mode Text Fixes */
+    .dark body, body.dark { background-color: #050505 !important; color: #ffffff !important; }
+    .dark .bg-gray-50, body.dark .bg-gray-50 { background-color: #0a0a0a !important; }
+    .dark .text-brand-primary, body.dark .text-brand-primary { color: #4CAF50 !important; }
+    .dark .glass-card p, .dark .glass-card span, .dark .glass-card h2, .dark .glass-card h3, .dark .glass-card td, .dark .glass-card th { color: #ffffff !important; }
+    .dark * { color: #ffffff; }
+    .dark .text-brand-primary, .dark i, .dark .fa, .dark .fas { color: inherit; }
+    .dark .text-brand-primary { color: #4CAF50 !important; }
+    .dark .sidebar-link { color: #ffffff !important; }
+    .dark .sidebar-link.active { color: #4CAF50 !important; }
+
+    .ecowash-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(45deg, #1B5E20, #4CAF50);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+      transition: all 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .ecowash-logo { font-size: 1.875rem; }
+    }
+
+    .dark input, .dark select {
+      background-color: #121212 !important;
+      color: #ffffff !important;
+      border-color: #2a2a2a !important;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-darkBg text-gray-900 dark:text-white font-sans antialiased overflow-x-hidden">
+
+  <!-- Animated Background -->
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 -left-40 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl animate-float-slow"></div>
+    <div class="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-brand-light/10 rounded-full blur-3xl animate-float-slow" style="animation-delay: -2s;"></div>
+  </div>
+
+  <!-- Top Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 py-3 px-0 bg-white/80 dark:bg-[#050505]/90 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
+    <div class="w-full flex items-center justify-between px-4 md:px-6">
+      <div class="flex items-center">
+        <button id="mobileSidebarToggle" class="lg:hidden w-9 h-9 rounded-full bg-gray-100 dark:bg-darkCard mr-3 flex items-center justify-center text-gray-600 dark:text-gray-300">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer">
+          <i class="fas fa-leaf text-2xl text-brand-primary"></i>
+          <a href="index.html" class="ecowash-logo">EcoWash <span class="text-sm tracking-widest uppercase font-sans text-gray-400 ml-1">Admin</span></a>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 md:gap-3">
+        <button id="rtlToggleBtn" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-light/10 text-brand-primary dark:bg-darkCard hover:bg-brand-primary hover:text-white transition-colors">RTL</button>
+        <button id="themeToggleBtn" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-darkCard flex items-center justify-center text-lg hover:text-brand-primary transition-colors">🌙</button>
+        <div class="relative">
+          <button id="userMenuBtn" class="flex items-center gap-2 focus:outline-none">
+            <div class="w-10 h-10 rounded-full bg-gray-900 dark:bg-white flex items-center justify-center text-white dark:text-gray-900 font-bold shadow-md"><i class="fas fa-shield-alt"></i></div>
+          </button>
+          <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-darkCard rounded-xl shadow-xl opacity-0 invisible transition-all z-50 border border-gray-100 dark:border-gray-800">
+            <div class="py-2">
+              <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+                <p class="text-sm font-bold text-gray-900 dark:text-white">Admin User</p>
+                <p class="text-xs text-gray-500">admin@ecowash.com</p>
+              </div>
+              <button id="dropdownSignOutBtn" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-sm"></div>
+
+  <div class="flex pt-[68px]">
+    <!-- Sidebar Menu -->
+    <aside id="sidebar" class="sidebar-desktop fixed lg:sticky top-[68px] left-0 h-[calc(100vh-68px)] w-64 bg-white/90 dark:bg-sidebar-dark/90 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-800/50 z-40 flex flex-col overflow-y-auto sidebar-scroll">
+      <nav class="flex-1 py-6 px-4 space-y-1.5">
+        <a data-page="overview" class="sidebar-link active flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold"><i class="fas fa-chart-pie w-5 text-brand-primary"></i><span>Overview</span></a>
+        
+        <a data-page="orders" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-clipboard-list w-5 text-brand-primary"></i><span>Manage Orders</span><span class="ml-auto text-xs bg-red-100 text-red-600 font-bold px-2 py-0.5 rounded-full">5</span></a>
+        
+        <a data-page="customers" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-users w-5 text-brand-primary"></i><span>Customers</span></a>
+        
+        <a data-page="services" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-tags w-5 text-brand-primary"></i><span>Services & Pricing</span></a>
+        
+        <a data-page="analytics" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-chart-line w-5 text-brand-primary"></i><span>Analytics</span></a>
+        
+        <a data-page="settings" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-cog w-5 text-brand-primary"></i><span>System Settings</span></a>
+      </nav>
+      
+      <div class="p-5 border-t border-gray-100 dark:border-gray-800">
+        <button id="sidebarSignOutBtn" class="flex items-center justify-center gap-2 text-red-600 dark:text-red-400 font-semibold border-2 border-red-100 dark:border-red-900/50 w-full hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl px-4 py-3 transition-all">
+          <i class="fas fa-sign-out-alt"></i><span>Secure Exit</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 pt-8 pb-12 px-4 md:px-8 max-w-7xl mx-auto w-full">
+
+      <!-- OVERVIEW PANEL -->
+      <div id="panel-overview" class="content-panel">
+        <div class="mb-8">
+          <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Admin Dashboard</h1>
+          <p class="text-gray-500 font-medium">Real-time overview of EcoWash operations.</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-blue-500">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Today's Revenue</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">$845.00</p>
+                <p class="text-brand-primary text-xs font-semibold mt-1"><i class="fas fa-arrow-up"></i> 12% from yesterday</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-yellow-500">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Active Orders</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">24</p>
+                <p class="text-yellow-600 text-xs font-semibold mt-1">5 Pending Pickup</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-purple-500">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">New Customers</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">12</p>
+                <p class="text-brand-primary text-xs font-semibold mt-1">This week</p>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-brand-primary">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Eco Points Issued</p>
+                <p class="text-3xl font-bold text-brand-primary">1,250</p>
+                <p class="text-gray-500 text-xs font-semibold mt-1">Total: 45k points</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Orders & Alerts -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div class="lg:col-span-2 glass-card rounded-3xl p-6 md:p-8 dashboard-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="font-serif text-2xl font-bold">Needs Attention</h2>
+                <button class="text-sm font-semibold text-brand-primary hover:underline">View All Orders</button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-100 dark:border-gray-800 text-sm text-gray-500">
+                            <th class="pb-3 font-semibold">Order ID</th>
+                            <th class="pb-3 font-semibold">Customer</th>
+                            <th class="pb-3 font-semibold">Status</th>
+                            <th class="pb-3 font-semibold text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                        <tr>
+                            <td class="py-4 font-bold">#EW-0930</td>
+                            <td class="py-4">Sarah Jenkins</td>
+                            <td class="py-4"><span class="bg-red-100 text-red-600 dark:bg-red-900/30 px-3 py-1 rounded-full font-bold text-xs">Pending Pickup</span></td>
+                            <td class="py-4 text-right"><button class="text-brand-primary font-bold hover:underline">Assign Driver</button></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-bold">#EW-0929</td>
+                            <td class="py-4">Marcus Cole</td>
+                            <td class="py-4"><span class="bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 px-3 py-1 rounded-full font-bold text-xs">Washing</span></td>
+                            <td class="py-4 text-right"><button class="text-gray-500 font-bold hover:text-brand-primary">Update</button></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-bold">#EW-0925</td>
+                            <td class="py-4">John Doe</td>
+                            <td class="py-4"><span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 px-3 py-1 rounded-full font-bold text-xs">Ready for Delivery</span></td>
+                            <td class="py-4 text-right"><button class="text-brand-primary font-bold hover:underline">Dispatch</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="glass-card rounded-3xl p-6 md:p-8 dashboard-card bg-brand-primary text-white border-none relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-[150px] pointer-events-none"><i class="fas fa-bolt"></i></div>
+            <h2 class="font-serif text-2xl font-bold mb-6 relative z-10 text-white">Quick Actions</h2>
+            <div class="space-y-3 relative z-10">
+                <button class="w-full flex items-center justify-between p-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors">
+                    <span><i class="fas fa-plus-circle mr-2"></i> Create Manual Order</span>
+                    <i class="fas fa-chevron-right text-sm"></i>
+                </button>
+                <button class="w-full flex items-center justify-between p-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors">
+                    <span><i class="fas fa-bullhorn mr-2"></i> Send Promo Email</span>
+                    <i class="fas fa-chevron-right text-sm"></i>
+                </button>
+                <button class="w-full flex items-center justify-between p-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors">
+                    <span><i class="fas fa-truck mr-2"></i> View Driver Map</span>
+                    <i class="fas fa-chevron-right text-sm"></i>
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MANAGE ORDERS PANEL -->
+      <div id="panel-orders" class="content-panel hidden">
+        <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Order Management</h1>
+            <p class="text-gray-500 font-medium">View and update customer laundry orders.</p>
+          </div>
+          <div class="flex gap-3">
+              <input type="text" placeholder="Search orders..." class="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkCard focus:ring-2 focus:ring-brand-primary outline-none">
+              <button class="px-4 py-2.5 bg-gray-100 dark:bg-gray-800 rounded-xl font-bold hover:bg-brand-primary hover:text-white transition-colors"><i class="fas fa-filter"></i> Filter</button>
+          </div>
+        </div>
+        
+        <div class="glass-card rounded-3xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-gray-50 dark:bg-gray-900/50">
+                        <tr class="text-sm text-gray-500">
+                            <th class="p-5 font-semibold">Order ID</th>
+                            <th class="p-5 font-semibold">Date</th>
+                            <th class="p-5 font-semibold">Customer</th>
+                            <th class="p-5 font-semibold">Service</th>
+                            <th class="p-5 font-semibold">Amount</th>
+                            <th class="p-5 font-semibold">Status</th>
+                            <th class="p-5 font-semibold text-right">Update</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
+                        <!-- Order Row -->
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
+                            <td class="p-5 font-bold">#EW-0930</td>
+                            <td class="p-5 text-gray-500">Oct 14, 2026</td>
+                            <td class="p-5 font-medium">Sarah Jenkins</td>
+                            <td class="p-5">Wash & Fold</td>
+                            <td class="p-5 font-bold">$24.50</td>
+                            <td class="p-5">
+                                <span class="bg-red-100 text-red-600 dark:bg-red-900/30 px-3 py-1 rounded-full font-bold text-xs">Pending Pickup</span>
+                            </td>
+                            <td class="p-5 text-right">
+                                <select class="border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs font-bold outline-none focus:border-brand-primary bg-white dark:bg-darkCard">
+                                    <option>Mark Processing</option>
+                                    <option>Assign Driver</option>
+                                    <option>Cancel</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!-- Order Row -->
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
+                            <td class="p-5 font-bold">#EW-0929</td>
+                            <td class="p-5 text-gray-500">Oct 13, 2026</td>
+                            <td class="p-5 font-medium">Marcus Cole</td>
+                            <td class="p-5">Dry Cleaning</td>
+                            <td class="p-5 font-bold">$65.00</td>
+                            <td class="p-5">
+                                <span class="bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 px-3 py-1 rounded-full font-bold text-xs">Washing</span>
+                            </td>
+                            <td class="p-5 text-right">
+                                <select class="border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs font-bold outline-none focus:border-brand-primary bg-white dark:bg-darkCard">
+                                    <option>Mark Ready</option>
+                                    <option>Print Tag</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!-- Order Row -->
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
+                            <td class="p-5 font-bold">#EW-0925</td>
+                            <td class="p-5 text-gray-500">Oct 12, 2026</td>
+                            <td class="p-5 font-medium">John Doe</td>
+                            <td class="p-5">Eco Wash & Fold</td>
+                            <td class="p-5 font-bold">$37.50</td>
+                            <td class="p-5">
+                                <span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 px-3 py-1 rounded-full font-bold text-xs">Ready for Delivery</span>
+                            </td>
+                            <td class="p-5 text-right">
+                                <select class="border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs font-bold outline-none focus:border-brand-primary bg-white dark:bg-darkCard">
+                                    <option>Dispatch Driver</option>
+                                    <option>Mark Delivered</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!-- Order Row -->
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
+                            <td class="p-5 font-bold">#EW-0889</td>
+                            <td class="p-5 text-gray-500">Sep 28, 2026</td>
+                            <td class="p-5 font-medium">John Doe</td>
+                            <td class="p-5">Dry Cleaning</td>
+                            <td class="p-5 font-bold">$45.00</td>
+                            <td class="p-5">
+                                <span class="bg-brand-light/20 text-brand-primary dark:bg-brand-dark/30 px-3 py-1 rounded-full font-bold text-xs">Delivered</span>
+                            </td>
+                            <td class="p-5 text-right">
+                                <button class="text-xs font-bold text-gray-400 hover:text-brand-primary">View Receipt</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-5 border-t border-gray-100 dark:border-gray-800 flex justify-center">
+                <button class="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-bold hover:border-brand-primary hover:text-brand-primary transition-colors">Load More</button>
+            </div>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS PANEL -->
+      <div id="panel-customers" class="content-panel hidden">
+        <div class="mb-8">
+            <h1 class="font-serif text-3xl font-bold mb-2">Customer Database</h1>
+            <p class="text-gray-500 font-medium">Manage user accounts and view loyalty metrics.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Customer Card -->
+            <div class="glass-card rounded-3xl p-6 border-t-4 border-t-brand-primary">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-brand-light/20 flex items-center justify-center text-brand-primary font-bold text-lg">JD</div>
+                    <div>
+                        <h3 class="font-bold text-lg">John Doe</h3>
+                        <p class="text-xs text-gray-500">john@example.com</p>
+                    </div>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Lifetime Value:</span> <span class="font-bold">$420.00</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Total Orders:</span> <span class="font-bold">14</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Eco Points:</span> <span class="font-bold text-brand-primary">450</span></div>
+                </div>
+                <button class="w-full py-2 bg-gray-100 dark:bg-gray-800 rounded-xl text-sm font-bold hover:bg-brand-primary hover:text-white transition-colors">View Profile</button>
+            </div>
+            
+            <!-- Customer Card -->
+            <div class="glass-card rounded-3xl p-6 border-t-4 border-t-gray-300">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg">SJ</div>
+                    <div>
+                        <h3 class="font-bold text-lg">Sarah Jenkins</h3>
+                        <p class="text-xs text-gray-500">sarah.j@example.com</p>
+                    </div>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Lifetime Value:</span> <span class="font-bold">$24.50</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Total Orders:</span> <span class="font-bold">1</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Eco Points:</span> <span class="font-bold text-brand-primary">20</span></div>
+                </div>
+                <button class="w-full py-2 bg-gray-100 dark:bg-gray-800 rounded-xl text-sm font-bold hover:bg-brand-primary hover:text-white transition-colors">View Profile</button>
+            </div>
+        </div>
+      </div>
+
+      <!-- SERVICES & PRICING PANEL -->
+      <div id="panel-services" class="content-panel hidden">
+        <div class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="font-serif text-3xl font-bold mb-2">Services & Pricing</h1>
+                <p class="text-gray-500 font-medium">Update the pricing and availability of your laundry services.</p>
+            </div>
+            <button class="px-5 py-2.5 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-colors shadow-md"><i class="fas fa-plus"></i> Add Service</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-card rounded-3xl p-6 flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-brand-light/20 text-brand-primary flex items-center justify-center text-xl mb-4"><i class="fas fa-tshirt"></i></div>
+                <h3 class="font-bold text-lg mb-1">Eco Wash & Fold</h3>
+                <p class="text-sm text-gray-500 mb-4 flex-grow">Standard machine wash using eco-friendly detergents. Charged by weight.</p>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="font-bold text-xl">$2.50 <span class="text-sm font-medium text-gray-500">/ lb</span></span>
+                    <button class="text-sm font-bold text-brand-primary hover:underline">Edit Price</button>
+                </div>
+            </div>
+            <div class="glass-card rounded-3xl p-6 flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4"><i class="fas fa-user-tie"></i></div>
+                <h3 class="font-bold text-lg mb-1">Dry Cleaning</h3>
+                <p class="text-sm text-gray-500 mb-4 flex-grow">Non-toxic liquid CO2 cleaning for delicate garments and suits.</p>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="font-bold text-xl">$6.00+ <span class="text-sm font-medium text-gray-500">/ item</span></span>
+                    <button class="text-sm font-bold text-brand-primary hover:underline">Edit Price</button>
+                </div>
+            </div>
+            <div class="glass-card rounded-3xl p-6 flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4"><i class="fas fa-bed"></i></div>
+                <h3 class="font-bold text-lg mb-1">Bedding & Linens</h3>
+                <p class="text-sm text-gray-500 mb-4 flex-grow">Deep clean for large items like comforters, duvets, and sheets.</p>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <span class="font-bold text-xl">$15.00+ <span class="text-sm font-medium text-gray-500">/ item</span></span>
+                    <button class="text-sm font-bold text-brand-primary hover:underline">Edit Price</button>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS PANEL (Placeholder) -->
+      <div id="panel-analytics" class="content-panel hidden">
+        <div class="mb-8">
+            <h1 class="font-serif text-3xl font-bold mb-2">Revenue Analytics</h1>
+            <p class="text-gray-500 font-medium">Business performance metrics.</p>
+        </div>
+        <div class="glass-card rounded-3xl p-10 text-center flex flex-col items-center justify-center min-h-[400px] border-dashed border-2 border-gray-300 dark:border-gray-700">
+            <i class="fas fa-chart-bar text-6xl text-gray-300 dark:text-gray-700 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-400 mb-2">Advanced Charting Coming Soon</h3>
+            <p class="text-gray-500 max-w-md">The analytics module is currently being integrated with the payment gateway to provide real-time revenue graphs.</p>
+        </div>
+      </div>
+
+      <!-- SETTINGS PANEL -->
+      <div id="panel-settings" class="content-panel hidden">
+        <div class="mb-8">
+            <h1 class="font-serif text-3xl font-bold mb-2">System Settings</h1>
+            <p class="text-gray-500 font-medium">Configure operational parameters.</p>
+        </div>
+        <div class="glass-card rounded-3xl p-6 md:p-8 max-w-2xl">
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Admin Contact Email</label>
+                    <input type="email" value="admin@ecowash.com" class="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary">
+                </div>
+                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+                    <div>
+                        <p class="font-bold">Accept New Orders</p>
+                        <p class="text-xs text-gray-500">Toggle customer checkout availability</p>
+                    </div>
+                    <div class="w-12 h-6 bg-brand-primary rounded-full relative cursor-pointer">
+                        <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <button type="button" class="px-8 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-all">Save System Config</button>
+                </div>
+            </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // Sign Out redirect to login
+    function performSignOut() {
+      window.location.href = "login.html";
+    }
+
+    document.getElementById('sidebarSignOutBtn')?.addEventListener('click', performSignOut);
+    document.getElementById('dropdownSignOutBtn')?.addEventListener('click', performSignOut);
+
+    // Theme & RTL logic 
+    const themeBtn = document.getElementById('themeToggleBtn');
+    themeBtn?.addEventListener('click', () => { 
+        document.body.classList.toggle('dark'); 
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); 
+        themeBtn.innerHTML = document.body.classList.contains('dark') ? '☀️' : '🌙'; 
+    });
+    if (localStorage.getItem('theme') === 'dark') { 
+        document.body.classList.add('dark'); 
+        if(themeBtn) themeBtn.innerHTML = '☀️'; 
+    }
+    
+    const rtlBtn = document.getElementById('rtlToggleBtn');
+    rtlBtn?.addEventListener('click', () => { 
+        const html = document.documentElement; 
+        const newDir = html.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl'; 
+        html.setAttribute('dir', newDir); 
+        localStorage.setItem('dir', newDir); 
+        rtlBtn.textContent = newDir === 'rtl' ? 'LTR' : 'RTL'; 
+    });
+    if (localStorage.getItem('dir') === 'rtl') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        if(rtlBtn) rtlBtn.textContent = 'LTR';
+    }
+
+    // Dropdown & Mobile Nav
+    const userBtn = document.getElementById('userMenuBtn'), userDrop = document.getElementById('userDropdown');
+    userBtn?.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        userDrop.classList.toggle('opacity-0'); 
+        userDrop.classList.toggle('invisible'); 
+    });
+    document.addEventListener('click', () => { 
+        userDrop?.classList.add('opacity-0', 'invisible'); 
+    });
+
+    const mobileToggle = document.getElementById('mobileSidebarToggle'), sidebar = document.getElementById('sidebar'), overlay = document.getElementById('sidebarOverlay');
+    mobileToggle?.addEventListener('click', () => { 
+        sidebar.classList.add('open'); 
+        overlay.classList.remove('hidden'); 
+    });
+    overlay?.addEventListener('click', () => { 
+        sidebar.classList.remove('open'); 
+        overlay.classList.add('hidden'); 
+    });
+
+    // Panel Routing Logic
+    const links = document.querySelectorAll('.sidebar-link');
+    const panels = { 
+        overview: document.getElementById('panel-overview'), 
+        orders: document.getElementById('panel-orders'), 
+        customers: document.getElementById('panel-customers'), 
+        services: document.getElementById('panel-services'), 
+        analytics: document.getElementById('panel-analytics'), 
+        settings: document.getElementById('panel-settings') 
+    };
+
+    function showPanel(id) { 
+        Object.values(panels).forEach(p => p?.classList.add('hidden')); 
+        if (panels[id]) panels[id].classList.remove('hidden'); 
+        
+        links.forEach(l => l.classList.remove('active')); 
+        document.querySelector(`[data-page="${id}"]`)?.classList.add('active'); 
+        
+        if (window.innerWidth < 1024) { 
+            sidebar.classList.remove('open'); 
+            overlay.classList.add('hidden'); 
+        } 
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    links.forEach(link => link.addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        const page = link.getAttribute('data-page'); 
+        if (page) showPanel(page); 
+    }));
+  </script>
+</body>
+</html>

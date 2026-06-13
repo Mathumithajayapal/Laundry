@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EcoWash | User Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#2E7D32',  /* EcoWash Primary Green */
+              light: '#4CAF50',    /* EcoWash Accent Green */
+              dark: '#1B5E20',     /* EcoWash Dark Green */
+            },
+            darkBg: '#050505',
+            darkCard: '#121212',
+            sidebar: {
+              dark: '#0a0a0a',
+              light: '#f1f8e9',    /* EcoWash Light background */
+            },
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.4s ease-out',
+            'float-slow': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(15px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(46, 125, 50, 0.15); /* EcoWash Green Border */
+    }
+
+    .dark .glass-card {
+      background: rgba(18, 18, 18, 0.94);
+      border: 1px solid rgba(76, 175, 80, 0.2);
+    }
+
+    .brand-gradient-bg {
+      background: linear-gradient(125deg, #2E7D32 0%, #4CAF50 100%);
+      background-size: 200% auto;
+      transition: 0.3s;
+    }
+
+    .brand-gradient-bg:hover {
+      background-position: right center;
+    }
+
+    .sidebar-link {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .sidebar-link.active {
+      background: linear-gradient(90deg, rgba(46, 125, 50, 0.15) 0%, rgba(46, 125, 50, 0.05) 100%);
+      border-left: 3px solid #2E7D32;
+      color: #2E7D32;
+    }
+
+    .dark .sidebar-link.active {
+      background: linear-gradient(90deg, rgba(76, 175, 80, 0.25) 0%, rgba(76, 175, 80, 0.05) 100%);
+      border-left: 3px solid #4CAF50;
+      color: #4CAF50;
+    }
+
+    .sidebar-link:hover:not(.active) {
+      background: rgba(46, 125, 50, 0.08);
+      transform: translateX(4px);
+    }
+
+    [dir="rtl"] .sidebar-link:hover:not(.active) {
+      transform: translateX(-4px);
+    }
+
+    [dir="rtl"] .sidebar-link.active {
+      border-left: none;
+      border-right: 3px solid #2E7D32;
+    }
+
+    .dark [dir="rtl"] .sidebar-link.active {
+      border-right: 3px solid #4CAF50;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: #2E7D32;
+      border-radius: 10px;
+    }
+
+    [dir="rtl"] .sidebar-link {
+      text-align: right;
+    }
+
+    .mobile-sidebar-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 1023px) {
+      .sidebar-desktop {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      [dir="rtl"] .sidebar-desktop {
+        transform: translateX(100%);
+      }
+
+      .sidebar-desktop.open {
+        transform: translateX(0);
+      }
+    }
+
+    .content-panel {
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .dashboard-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Dark Mode Overrides */
+    .dark body, body.dark {
+      background-color: #050505 !important;
+      color: #ffffff !important;
+    }
+    .dark .bg-gray-50, body.dark .bg-gray-50 {
+      background-color: #0a0a0a !important;
+    }
+    .dark .text-brand-primary, body.dark .text-brand-primary {
+      color: #4CAF50 !important; /* Lighter green for dark mode visibility */
+    }
+    .dark .glass-card p, .dark .glass-card span, .dark .glass-card h2, .dark .glass-card h3 {
+      color: #ffffff !important;
+    }
+    .dark * {
+      color: #ffffff;
+    }
+    .dark .text-brand-primary, .dark i, .dark .fa, .dark .fas {
+      color: inherit;
+    }
+    .dark .text-brand-primary {
+      color: #4CAF50 !important;
+    }
+    .dark .sidebar-link {
+      color: #ffffff !important;
+    }
+    .dark .sidebar-link.active {
+      color: #4CAF50 !important;
+    }
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* EcoWash Logo Style */
+    .ecowash-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(45deg, #1B5E20, #4CAF50);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+      transition: all 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .ecowash-logo {
+        font-size: 1.875rem;
+      }
+    }
+
+    .dark input {
+      background-color: #121212 !important;
+      color: #ffffff !important;
+      border-color: #2a2a2a !important;
+    }
+
+    .dark input::placeholder {
+      color: #9ca3af !important;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-darkBg text-gray-900 dark:text-white font-sans antialiased overflow-x-hidden">
+
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 -left-40 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl animate-float-slow"></div>
+    <div class="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-brand-light/10 rounded-full blur-3xl animate-float-slow" style="animation-delay: -2s;"></div>
+  </div>
+
+  <header class="fixed top-0 left-0 right-0 z-50 py-3 px-0 bg-white/80 dark:bg-[#050505]/90 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
+    <div class="w-full flex items-center justify-between px-4 md:px-6">
+      <div class="flex items-center">
+        <button id="mobileSidebarToggle" class="lg:hidden w-9 h-9 rounded-full bg-gray-100 dark:bg-darkCard mr-3 flex items-center justify-center text-gray-600 dark:text-gray-300">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer">
+          <i class="fas fa-leaf text-2xl text-brand-primary"></i>
+          <a href="index.html" class="ecowash-logo">EcoWash</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 md:gap-3">
+        <button id="rtlToggleBtn" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-light/10 text-brand-primary dark:bg-darkCard hover:bg-brand-primary hover:text-white transition-colors">RTL</button>
+        <button id="themeToggleBtn" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-darkCard flex items-center justify-center text-lg hover:text-brand-primary transition-colors">🌙</button>
+        <div class="relative">
+          <button id="userMenuBtn" class="flex items-center gap-2 focus:outline-none">
+            <div class="w-10 h-10 rounded-full brand-gradient-bg flex items-center justify-center text-white font-bold shadow-md">JD</div>
+          </button>
+          <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-darkCard rounded-xl shadow-xl opacity-0 invisible transition-all z-50 border border-gray-100 dark:border-gray-800">
+            <div class="py-2">
+              <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+                <p class="text-sm font-bold text-gray-900 dark:text-white">John Doe</p>
+                <p class="text-xs text-gray-500">john@example.com</p>
+              </div>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-brand-light/10 hover:text-brand-primary transition">Profile</a>
+              <button id="dropdownSignOutBtn" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-sm"></div>
+
+  <div class="flex pt-[68px]">
+    <aside id="sidebar" class="sidebar-desktop fixed lg:sticky top-[68px] left-0 h-[calc(100vh-68px)] w-64 bg-white/90 dark:bg-sidebar-dark/90 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-800/50 z-40 flex flex-col overflow-y-auto sidebar-scroll">
+      <nav class="flex-1 py-6 px-4 space-y-1.5">
+        <a data-page="dashboard" class="sidebar-link active flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold"><i class="fas fa-border-all w-5 text-brand-primary"></i><span>Overview</span></a>
+        
+        <a data-page="orders" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-tshirt w-5 text-brand-primary"></i><span>My Orders</span><span class="ml-auto text-xs bg-brand-light/20 text-brand-primary font-bold px-2 py-0.5 rounded-full">2</span></a>
+        
+        <a data-page="wishlist" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-heart w-5 text-brand-primary"></i><span>Saved Services</span><span class="ml-auto text-xs bg-brand-light/20 text-brand-primary font-bold px-2 py-0.5 rounded-full">4</span></a>
+        
+        <a data-page="addresses" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-map-marker-alt w-5 text-brand-primary"></i><span>Addresses</span></a>
+        
+        <a data-page="payments" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-credit-card w-5 text-brand-primary"></i><span>Payments</span></a>
+        
+        <a data-page="rewards" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-leaf w-5 text-brand-primary"></i><span>Eco Points</span></a>
+        
+        <a data-page="settings" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-cog w-5 text-brand-primary"></i><span>Settings</span></a>
+      </nav>
+      
+      <div class="p-5 border-t border-gray-100 dark:border-gray-800">
+        <button id="sidebarSignOutBtn" class="flex items-center justify-center gap-2 text-red-600 dark:text-red-400 font-semibold border-2 border-red-100 dark:border-red-900/50 w-full hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl px-4 py-3 transition-all">
+          <i class="fas fa-sign-out-alt"></i><span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="flex-1 pt-8 pb-12 px-4 md:px-8 max-w-7xl mx-auto w-full">
+
+      <div id="panel-dashboard" class="content-panel">
+        <div class="mb-8">
+          <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Welcome back, <span class="text-brand-primary">John!</span></h1>
+          <p class="text-gray-500 font-medium">Here's what's happening with your eco-friendly laundry today.</p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+          <div class="glass-card rounded-3xl p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Active Orders</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">2</p>
+              </div>
+              <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-500"><i class="fas fa-clock text-xl"></i></div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Items Cleaned</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">128</p>
+                <p class="text-brand-primary text-xs font-semibold mt-1">+14 this month</p>
+              </div>
+              <div class="w-12 h-12 bg-brand-light/15 rounded-2xl flex items-center justify-center text-brand-primary"><i class="fas fa-tshirt text-xl"></i></div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Total Savings</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">$45</p>
+              </div>
+              <div class="w-12 h-12 bg-purple-50 dark:bg-purple-900/20 rounded-2xl flex items-center justify-center text-purple-500"><i class="fas fa-piggy-bank text-xl"></i></div>
+            </div>
+          </div>
+          <div class="glass-card rounded-3xl p-6 border-brand-primary/30">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Eco Points</p>
+                <p class="text-3xl font-bold text-brand-primary">450</p>
+              </div>
+              <div class="w-12 h-12 bg-brand-light/20 rounded-2xl flex items-center justify-center text-brand-primary"><i class="fas fa-leaf text-xl"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-6 dashboard-card mb-8">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="font-serif text-2xl font-bold">🍃 Popular Services</h2>
+            <a href="#" class="text-sm font-semibold text-brand-primary hover:text-brand-dark transition-colors">Book Now →</a>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+            <div class="rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-800/30 group cursor-pointer border border-gray-100 dark:border-gray-800 transition hover:border-brand-primary/50 hover:shadow-lg">
+              <div class="aspect-[4/3] overflow-hidden"><img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=500&q=80" alt="Wash & Fold" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+              <div class="p-4">
+                <p class="font-bold text-gray-900 dark:text-white mb-1">Eco Wash & Fold</p>
+                <p class="text-sm font-semibold text-brand-primary">$2.50 / lb</p>
+              </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-800/30 group cursor-pointer border border-gray-100 dark:border-gray-800 transition hover:border-brand-primary/50 hover:shadow-lg">
+              <div class="aspect-[4/3] overflow-hidden"><img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=500&q=80" alt="Dry Cleaning" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+              <div class="p-4">
+                <p class="font-bold text-gray-900 dark:text-white mb-1">Dry Cleaning</p>
+                <p class="text-sm font-semibold text-brand-primary">From $6.00</p>
+              </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-800/30 group cursor-pointer border border-gray-100 dark:border-gray-800 transition hover:border-brand-primary/50 hover:shadow-lg">
+              <div class="aspect-[4/3] overflow-hidden"><img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=500&q=80" alt="Bedding & Linens" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+              <div class="p-4">
+                <p class="font-bold text-gray-900 dark:text-white mb-1">Bedding & Linens</p>
+                <p class="text-sm font-semibold text-brand-primary">From $15.00</p>
+              </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-800/30 group cursor-pointer border border-gray-100 dark:border-gray-800 transition hover:border-brand-primary/50 hover:shadow-lg">
+              <div class="aspect-[4/3] overflow-hidden"><img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=500&q=80" alt="Sneaker Cleaning" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+              <div class="p-4">
+                <p class="font-bold text-gray-900 dark:text-white mb-1">Sneaker Revive</p>
+                <p class="text-sm font-semibold text-brand-primary">$25.00 / pair</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div class="glass-card rounded-3xl p-6 md:p-8 dashboard-card">
+            <h2 class="font-serif text-2xl font-bold mb-6">📦 Recent Activity</h2>
+            <div class="space-y-4">
+              <div class="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/30 border border-gray-100 dark:border-gray-800">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 flex items-center justify-center flex-shrink-0 text-xl"><i class="fas fa-truck"></i></div>
+                <div>
+                  <p class="text-sm text-gray-900 dark:text-gray-100">Order <span class="font-bold">#EW-0925</span> is out for pickup.</p>
+                  <p class="text-xs font-medium text-gray-500 mt-1">2 hours ago</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/30 border border-gray-100 dark:border-gray-800">
+                <div class="w-12 h-12 rounded-xl bg-brand-light/20 text-brand-primary flex items-center justify-center flex-shrink-0 text-xl"><i class="fas fa-check-circle"></i></div>
+                <div>
+                  <p class="text-sm text-gray-900 dark:text-gray-100">Order <span class="font-bold">#EW-0889</span> was delivered successfully.</p>
+                  <p class="text-xs font-medium text-gray-500 mt-1">Yesterday</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/30 border border-gray-100 dark:border-gray-800">
+                <div class="w-12 h-12 rounded-xl bg-green-100 text-brand-primary dark:bg-brand-dark/30 flex items-center justify-center flex-shrink-0 text-xl">
+                  <i class="fas fa-leaf"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-900 dark:text-gray-100">Earned <span class="font-bold text-brand-primary">+50 Eco Points</span> for cold wash selection.</p>
+                  <p class="text-xs font-medium text-gray-500 mt-1">Oct 12</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 md:p-8 dashboard-card relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-[150px] text-brand-primary pointer-events-none"><i class="fas fa-seedling"></i></div>
+            
+            <h2 class="font-serif text-2xl font-bold mb-4 relative z-10">EcoWash Subscribe & Save</h2>
+            <div class="rounded-2xl overflow-hidden mb-5 h-40 relative z-10">
+                <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                    <span class="text-white font-bold bg-brand-primary px-3 py-1 rounded-lg text-sm">Save 15% Monthly</span>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-5 relative z-10 font-medium">Get regular weekly pickups and free delivery on all your laundry needs.</p>
+            <button class="w-full py-3.5 bg-brand-primary hover:bg-brand-dark text-white rounded-xl font-bold shadow-lg shadow-brand-primary/30 transition-all transform hover:-translate-y-1 relative z-10">View Subscription Plans →</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-orders" class="content-panel hidden">
+        <div class="mb-8">
+          <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">My Orders</h1>
+          <p class="text-gray-500 font-medium">Track your active and past laundry deliveries.</p>
+        </div>
+        <div class="space-y-5">
+          <div class="glass-card rounded-3xl p-6 md:p-8">
+            <div class="flex flex-wrap justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4 mb-5 gap-4">
+              <div>
+                <span class="text-sm font-bold bg-brand-light/10 text-brand-primary px-3 py-1 rounded-full border border-brand-primary/20">Order #EW-0924</span>
+                <p class="text-sm font-medium text-gray-500 mt-2">Placed: Oct 12, 2026</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 text-yellow-700 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-500 text-sm font-bold px-4 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-yellow-500"></span> Washing in Progress
+              </span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
+              <div class="flex items-center gap-5">
+                <div class="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-brand-primary text-3xl flex-shrink-0">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">Wash & Fold (Eco-Detergent)</h3>
+                  <p class="text-sm font-medium text-gray-500 mb-1">2 Bags (Approx 15 lbs)</p>
+                  <div class="font-bold text-gray-900 dark:text-white">$37.50</div>
+                </div>
+              </div>
+              <div class="w-full sm:w-auto flex gap-3">
+                  <button class="flex-1 sm:flex-none text-sm font-bold border-2 border-gray-200 dark:border-gray-700 hover:border-brand-primary hover:text-brand-primary px-5 py-2.5 rounded-xl transition-colors">Details</button>
+                  <button class="flex-1 sm:flex-none text-sm font-bold bg-brand-primary text-white hover:bg-brand-dark px-5 py-2.5 rounded-xl transition-colors shadow-md shadow-brand-primary/20">Track</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 md:p-8">
+            <div class="flex flex-wrap justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-4 mb-5 gap-4">
+              <div>
+                <span class="text-sm font-bold bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700">Order #EW-0889</span>
+                <p class="text-sm font-medium text-gray-500 mt-2">Placed: Sep 28, 2026</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 text-brand-primary bg-brand-light/20 dark:bg-brand-dark/30 text-sm font-bold px-4 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-brand-primary"></span> Delivered
+              </span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
+              <div class="flex items-center gap-5">
+                <div class="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 text-3xl flex-shrink-0">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">Dry Cleaning</h3>
+                  <p class="text-sm font-medium text-gray-500 mb-1">4 Items (Suits, Dresses)</p>
+                  <div class="font-bold text-gray-900 dark:text-white">$45.00</div>
+                </div>
+              </div>
+              <div class="w-full sm:w-auto flex gap-3">
+                  <button class="flex-1 sm:flex-none text-sm font-bold border-2 border-gray-200 dark:border-gray-700 hover:border-brand-primary hover:text-brand-primary px-5 py-2.5 rounded-xl transition-colors">Receipt</button>
+                  <button class="flex-1 sm:flex-none text-sm font-bold bg-brand-primary text-white hover:bg-brand-dark px-5 py-2.5 rounded-xl transition-colors shadow-md shadow-brand-primary/20">Reorder</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-wishlist" class="content-panel hidden">
+        <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Saved Services 💚</h1>
+            <p class="text-gray-500 font-medium">Quickly book your favorite cleaning options.</p>
+          </div>
+          <button class="px-5 py-2.5 font-bold text-sm rounded-xl bg-brand-light/10 text-brand-primary hover:bg-brand-primary hover:text-white transition-colors border border-brand-primary/20">Book All</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card rounded-3xl overflow-hidden hover:-translate-y-1 transition-transform duration-300 border border-gray-100 dark:border-gray-800">
+            <div class="relative h-48 w-full">
+                <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=500&q=80" alt="Suit Cleaning" class="w-full h-full object-cover">
+                <button class="absolute top-4 right-4 bg-white/90 dark:bg-gray-900/90 w-10 h-10 rounded-full flex items-center justify-center text-brand-primary shadow-lg hover:scale-110 transition-transform"><i class="fas fa-heart text-lg"></i></button>
+            </div>
+            <div class="p-6">
+              <h3 class="font-bold text-lg mb-1">Executive Suit Care</h3>
+              <div class="flex items-baseline gap-2 mb-2">
+                  <span class="text-xl font-bold text-brand-primary">$18.99</span>
+              </div>
+              <p class="text-sm font-medium text-gray-500 mb-4">Premium non-toxic dry cleaning.</p>
+              <div class="flex gap-3">
+                  <button class="flex-1 bg-brand-primary text-white font-bold py-2.5 rounded-xl text-sm hover:bg-brand-dark transition-colors shadow-md shadow-brand-primary/20">Schedule</button>
+                  <button class="w-12 h-12 rounded-xl border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition-colors"><i class="far fa-trash-alt"></i></button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="glass-card rounded-3xl overflow-hidden hover:-translate-y-1 transition-transform duration-300 border border-gray-100 dark:border-gray-800">
+            <div class="relative h-48 w-full">
+                <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=500&q=80" alt="Comforter Cleaning" class="w-full h-full object-cover">
+                <button class="absolute top-4 right-4 bg-white/90 dark:bg-gray-900/90 w-10 h-10 rounded-full flex items-center justify-center text-brand-primary shadow-lg hover:scale-110 transition-transform"><i class="fas fa-heart text-lg"></i></button>
+            </div>
+            <div class="p-6">
+              <h3 class="font-bold text-lg mb-1">Down Comforter Wash</h3>
+              <div class="flex items-baseline gap-2 mb-2">
+                  <span class="text-xl font-bold text-brand-primary">$35.00</span>
+              </div>
+              <p class="text-sm font-medium text-gray-500 mb-4">Deep clean for large bedding items.</p>
+              <div class="flex gap-3">
+                  <button class="flex-1 bg-brand-primary text-white font-bold py-2.5 rounded-xl text-sm hover:bg-brand-dark transition-colors shadow-md shadow-brand-primary/20">Schedule</button>
+                  <button class="w-12 h-12 rounded-xl border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition-colors"><i class="far fa-trash-alt"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-addresses" class="content-panel hidden">
+        <div class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="font-serif text-3xl font-bold mb-2">Saved Addresses</h1>
+                <p class="text-gray-500 font-medium">Manage where we pick up and deliver your laundry.</p>
+            </div>
+            <button class="hidden md:flex items-center gap-2 px-5 py-2.5 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-colors shadow-md"><i class="fas fa-plus"></i> Add New</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass-card rounded-3xl p-6 relative border-2 border-brand-primary">
+                <span class="absolute top-6 right-6 bg-brand-light/20 text-brand-primary text-xs font-bold px-3 py-1 rounded-full">Default</span>
+                <div class="w-12 h-12 rounded-full bg-brand-light/10 text-brand-primary flex items-center justify-center text-xl mb-4"><i class="fas fa-home"></i></div>
+                <h3 class="font-bold text-lg mb-1">Home</h3>
+                <p class="text-gray-500 text-sm font-medium mb-6">John Doe<br>123 Green Boulevard, Apt 4B<br>Eco City, EC 90210</p>
+                <div class="flex gap-3">
+                    <button class="text-sm font-bold text-brand-primary hover:underline">Edit</button>
+                    <span class="text-gray-300">|</span>
+                    <button class="text-sm font-bold text-red-500 hover:underline">Delete</button>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div id="panel-payments" class="content-panel hidden">
+        <div class="mb-8">
+            <h1 class="font-serif text-3xl font-bold mb-2">Payment Methods</h1>
+            <p class="text-gray-500 font-medium">Securely manage your billing information.</p>
+        </div>
+        <div class="glass-card rounded-3xl p-6 md:p-8 max-w-2xl">
+          <div class="flex items-center justify-between p-5 border-2 border-brand-primary rounded-2xl bg-brand-light/5 mb-4">
+            <div class="flex items-center gap-5">
+                <div class="w-14 h-10 bg-white rounded flex items-center justify-center shadow-sm border border-gray-200"><i class="fab fa-cc-visa text-3xl text-blue-800"></i></div>
+                <div>
+                    <p class="font-bold text-gray-900 dark:text-white">Visa ending in 4242</p>
+                    <p class="text-sm text-gray-500 font-medium">Expires 12/28</p>
+                </div>
+            </div>
+            <span class="text-xs font-bold text-brand-primary bg-brand-light/20 px-3 py-1 rounded-full">Default</span>
+          </div>
+          <button class="w-full py-4 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-2xl text-gray-500 font-bold hover:text-brand-primary hover:border-brand-primary hover:bg-brand-light/5 transition-all flex items-center justify-center gap-2"><i class="fas fa-plus-circle"></i> Add New Payment Method</button>
+        </div>
+      </div>
+
+      <div id="panel-rewards" class="content-panel hidden">
+        <div class="mb-8 text-center">
+            <h1 class="font-serif text-3xl font-bold mb-2">Eco Points</h1>
+            <p class="text-gray-500 font-medium">Earn points for every sustainable choice you make.</p>
+        </div>
+        <div class="glass-card rounded-[3rem] p-10 max-w-xl mx-auto text-center border-brand-primary/30 relative overflow-hidden">
+          <div class="absolute inset-0 bg-brand-primary/5"></div>
+          <div class="relative z-10">
+            <div class="w-24 h-24 mx-auto bg-white dark:bg-gray-900 rounded-full flex items-center justify-center text-4xl text-brand-primary shadow-xl mb-6 border border-gray-100 dark:border-gray-800">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <p class="text-6xl font-black text-brand-primary mb-2">450</p>
+            <p class="text-gray-500 font-bold tracking-widest uppercase text-sm mb-8">Total Points Balance</p>
+            
+            <div class="bg-white dark:bg-gray-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 text-left">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="font-bold text-sm">Green Tier</span>
+                    <span class="font-bold text-sm text-gray-400">550 pts to Gold</span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-3 mb-2">
+                    <div class="bg-brand-primary h-3 rounded-full" style="width: 45%"></div>
+                </div>
+                <p class="text-xs font-medium text-gray-500">Reach Gold Tier for 5% off all services.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-settings" class="content-panel hidden">
+        <div class="mb-8">
+            <h1 class="font-serif text-3xl font-bold mb-2">Account Settings</h1>
+            <p class="text-gray-500 font-medium">Update your personal details and preferences.</p>
+        </div>
+        <div class="glass-card rounded-3xl p-6 md:p-8 max-w-2xl">
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
+                    <input type="text" value="John Doe" class="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary transition-all font-medium">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                    <input type="email" value="john@example.com" class="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary transition-all font-medium">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Phone Number</label>
+                    <input type="tel" value="+1 (555) 0199" class="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary transition-all font-medium">
+                </div>
+                <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <button type="button" class="px-8 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg shadow-brand-primary/30">Save Changes</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ---------- SIGN OUT FUNCTIONALITY: Redirect to login.html ----------
+    function performSignOut() {
+      window.location.href = "login.html";
+    }
+
+    const sidebarSignOutBtn = document.getElementById('sidebarSignOutBtn');
+    const dropdownSignOutBtn = document.getElementById('dropdownSignOutBtn');
+
+    if (sidebarSignOutBtn) {
+      sidebarSignOutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        performSignOut();
+      });
+    }
+    if (dropdownSignOutBtn) {
+      dropdownSignOutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        performSignOut();
+      });
+    }
+
+    // Theme & RTL logic 
+    const themeBtn = document.getElementById('themeToggleBtn');
+    themeBtn?.addEventListener('click', () => { 
+        document.body.classList.toggle('dark'); 
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); 
+        themeBtn.innerHTML = document.body.classList.contains('dark') ? '☀️' : '🌙'; 
+    });
+    if (localStorage.getItem('theme') === 'dark') { 
+        document.body.classList.add('dark'); 
+        if(themeBtn) themeBtn.innerHTML = '☀️'; 
+    }
+    
+    const rtlBtn = document.getElementById('rtlToggleBtn');
+    rtlBtn?.addEventListener('click', () => { 
+        const html = document.documentElement; 
+        const newDir = html.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl'; 
+        html.setAttribute('dir', newDir); 
+        localStorage.setItem('dir', newDir); 
+        rtlBtn.textContent = newDir === 'rtl' ? 'LTR' : 'RTL'; 
+    });
+    if (localStorage.getItem('dir') === 'rtl') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        if(rtlBtn) rtlBtn.textContent = 'LTR';
+    }
+
+    // Dropdown & Mobile Nav
+    const userBtn = document.getElementById('userMenuBtn'), userDrop = document.getElementById('userDropdown');
+    userBtn?.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        userDrop.classList.toggle('opacity-0'); 
+        userDrop.classList.toggle('invisible'); 
+    });
+    document.addEventListener('click', () => { 
+        userDrop?.classList.add('opacity-0', 'invisible'); 
+    });
+
+    const mobileToggle = document.getElementById('mobileSidebarToggle'), sidebar = document.getElementById('sidebar'), overlay = document.getElementById('sidebarOverlay');
+    mobileToggle?.addEventListener('click', () => { 
+        sidebar.classList.add('open'); 
+        overlay.classList.remove('hidden'); 
+    });
+    overlay?.addEventListener('click', () => { 
+        sidebar.classList.remove('open'); 
+        overlay.classList.add('hidden'); 
+    });
+
+    // Panel Routing
+    const links = document.querySelectorAll('.sidebar-link');
+    const panels = { 
+        dashboard: document.getElementById('panel-dashboard'), 
+        orders: document.getElementById('panel-orders'), 
+        wishlist: document.getElementById('panel-wishlist'), 
+        addresses: document.getElementById('panel-addresses'), 
+        payments: document.getElementById('panel-payments'), 
+        rewards: document.getElementById('panel-rewards'), 
+        settings: document.getElementById('panel-settings') 
+    };
+
+    function showPanel(id) { 
+        Object.values(panels).forEach(p => p?.classList.add('hidden')); 
+        if (panels[id]) panels[id].classList.remove('hidden'); 
+        
+        links.forEach(l => l.classList.remove('active')); 
+        document.querySelector(`[data-page="${id}"]`)?.classList.add('active'); 
+        
+        if (window.innerWidth < 1024) { 
+            sidebar.classList.remove('open'); 
+            overlay.classList.add('hidden'); 
+        } 
+        
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    links.forEach(link => link.addEventListener('click', (e) => { 
+        e.preventDefault(); 
+        const page = link.getAttribute('data-page'); 
+        if (page) showPanel(page); 
+    }));
+  </script>
+</body>
+</html>
