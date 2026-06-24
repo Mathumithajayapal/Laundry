@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>EcoWash | Admin Dashboard</title>
+  <title>EcoWash | User Dashboard</title>
 
   <!-- Google Fonts: Playfair Display + Poppins -->
-         <link rel="icon" type="image/jpeg" href="Images\laundry (4).jpg">
+  <link rel="icon" type="image/jpeg" href="Images\laundry (4).jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +41,7 @@
           animation: {
             'fade-in-up': 'fadeInUp 0.4s ease-out',
             'float-slow': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           },
           keyframes: {
             fadeInUp: {
@@ -169,7 +170,7 @@
     .dark body, body.dark { background-color: #050505 !important; color: #ffffff !important; }
     .dark .bg-gray-50, body.dark .bg-gray-50 { background-color: #0a0a0a !important; }
     .dark .text-brand-primary, body.dark .text-brand-primary { color: #4CAF50 !important; }
-    .dark .glass-card p, .dark .glass-card span, .dark .glass-card h2, .dark .glass-card h3, .dark .glass-card td, .dark .glass-card th { color: #ffffff !important; }
+    .dark .glass-card p, .dark .glass-card span, .dark .glass-card h2, .dark .glass-card h3, .dark .glass-card td, .dark .glass-card th, .dark .glass-card label { color: #ffffff !important; }
     .dark * { color: #ffffff; }
     .dark .text-brand-primary, .dark i, .dark .fa, .dark .fas { color: inherit; }
     .dark .text-brand-primary { color: #4CAF50 !important; }
@@ -193,10 +194,26 @@
       .ecowash-logo { font-size: 1.875rem; }
     }
 
-    .dark input, .dark select {
+    .dark input, .dark select, .dark textarea {
       background-color: #121212 !important;
       color: #ffffff !important;
       border-color: #2a2a2a !important;
+    }
+    
+    /* Progress Tracker Line */
+    .progress-line::before {
+        content: '';
+        position: absolute;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 2px;
+        background-color: #e5e7eb;
+        z-index: 0;
+    }
+    .dark .progress-line::before {
+        background-color: #374151;
     }
   </style>
 </head>
@@ -218,22 +235,28 @@
         </button>
         <div class="flex items-center gap-2 cursor-pointer">
           <i class="fas fa-leaf text-2xl text-brand-primary"></i>
-          <a href="index.html" class="ecowash-logo">EcoWash <span class="text-sm tracking-widest uppercase font-sans text-gray-400 ml-1">Admin</span></a>
+          <a href="index.html" class="ecowash-logo">EcoWash</a>
         </div>
       </div>
-      <div class="flex items-center gap-2 md:gap-3">
-        <button id="rtlToggleBtn" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-light/10 text-brand-primary dark:bg-darkCard hover:bg-brand-primary hover:text-white transition-colors">RTL</button>
+      <div class="flex items-center gap-3 md:gap-4">
+        <div class="hidden sm:flex items-center gap-2 bg-brand-light/10 dark:bg-brand-dark/30 px-3 py-1.5 rounded-full border border-brand-primary/20">
+            <i class="fas fa-star text-yellow-500 text-sm"></i>
+            <span class="text-sm font-bold text-brand-primary">450 Pts</span>
+        </div>
+        <button id="rtlToggleBtn" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-gray-100 dark:bg-darkCard hover:bg-brand-primary hover:text-white transition-colors">RTL</button>
         <button id="themeToggleBtn" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-darkCard flex items-center justify-center text-lg hover:text-brand-primary transition-colors">🌙</button>
         <div class="relative">
           <button id="userMenuBtn" class="flex items-center gap-2 focus:outline-none">
-            <div class="w-10 h-10 rounded-full bg-gray-900 dark:bg-white flex items-center justify-center text-white dark:text-gray-900 font-bold shadow-md"><i class="fas fa-shield-alt"></i></div>
+            <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=2E7D32&color=fff" alt="User" class="w-10 h-10 rounded-full shadow-md border-2 border-white dark:border-gray-800">
           </button>
           <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-darkCard rounded-xl shadow-xl opacity-0 invisible transition-all z-50 border border-gray-100 dark:border-gray-800">
             <div class="py-2">
               <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
-                <p class="text-sm font-bold text-gray-900 dark:text-white">Admin User</p>
-                <p class="text-xs text-gray-500">admin@ecowash.com</p>
+                <p class="text-sm font-bold text-gray-900 dark:text-white">Sarah Jenkins</p>
+                <p class="text-xs text-gray-500">sarah.j@example.com</p>
               </div>
+              <button onclick="document.querySelector('[data-page=\'profile\']').click()" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition">My Profile</button>
+              <button onclick="document.querySelector('[data-page=\'rewards\']').click()" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition">Eco Rewards</button>
               <button id="dropdownSignOutBtn" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition">Sign Out</button>
             </div>
           </div>
@@ -247,23 +270,30 @@
   <div class="flex pt-[68px]">
     <!-- Sidebar Menu -->
     <aside id="sidebar" class="sidebar-desktop fixed lg:sticky top-[68px] left-0 h-[calc(100vh-68px)] w-64 bg-white/90 dark:bg-sidebar-dark/90 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-800/50 z-40 flex flex-col overflow-y-auto sidebar-scroll">
-      <nav class="flex-1 py-6 px-4 space-y-1.5">
-        <a data-page="overview" class="sidebar-link active flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold"><i class="fas fa-chart-pie w-5 text-brand-primary"></i><span>Overview</span></a>
+      
+      <div class="p-4 pt-6">
+          <button onclick="document.querySelector('[data-page=\'schedule\']').click()" class="w-full py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-brand-dark transition-colors shadow-lg shadow-brand-primary/30 flex items-center justify-center gap-2">
+              <i class="fas fa-plus"></i> New Wash
+          </button>
+      </div>
+
+      <nav class="flex-1 py-2 px-4 space-y-1.5">
+        <a data-page="overview" class="sidebar-link active flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold"><i class="fas fa-home w-5 text-brand-primary"></i><span>Dashboard</span></a>
         
-        <a data-page="orders" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-clipboard-list w-5 text-brand-primary"></i><span>Manage Orders</span><span class="ml-auto text-xs bg-red-100 text-red-600 font-bold px-2 py-0.5 rounded-full">5</span></a>
+        <a data-page="schedule" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-calendar-alt w-5 text-brand-primary"></i><span>Schedule a Wash</span></a>
         
-        <a data-page="customers" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-users w-5 text-brand-primary"></i><span>Customers</span></a>
+        <a data-page="orders" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-tshirt w-5 text-brand-primary"></i><span>My Orders</span><span class="ml-auto text-xs bg-brand-light/20 text-brand-primary font-bold px-2 py-0.5 rounded-full">1</span></a>
         
-        <a data-page="services" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-tags w-5 text-brand-primary"></i><span>Services & Pricing</span></a>
+        <a data-page="rewards" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-leaf w-5 text-brand-primary"></i><span>Eco Rewards</span></a>
         
-        <a data-page="analytics" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-chart-line w-5 text-brand-primary"></i><span>Analytics</span></a>
+        <a data-page="profile" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-user-circle w-5 text-brand-primary"></i><span>My Profile</span></a>
         
-        <a data-page="settings" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-cog w-5 text-brand-primary"></i><span>System Settings</span></a>
+        <a data-page="settings" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-cog w-5 text-brand-primary"></i><span>Preferences</span></a>
       </nav>
       
       <div class="p-5 border-t border-gray-100 dark:border-gray-800">
-        <button id="sidebarSignOutBtn" class="flex items-center justify-center gap-2 text-red-600 dark:text-red-400 font-semibold border-2 border-red-100 dark:border-red-900/50 w-full hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl px-4 py-3 transition-all">
-          <i class="fas fa-sign-out-alt"></i><span>Secure Exit</span>
+        <button id="sidebarSignOutBtn" class="flex items-center justify-center gap-2 text-gray-500 hover:text-red-600 dark:hover:text-red-400 font-semibold w-full hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl px-4 py-3 transition-all">
+          <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
         </button>
       </div>
     </aside>
@@ -274,124 +304,220 @@
       <!-- OVERVIEW PANEL -->
       <div id="panel-overview" class="content-panel">
         <div class="mb-8">
-          <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Admin Dashboard</h1>
-          <p class="text-gray-500 font-medium">Real-time overview of EcoWash operations.</p>
+          <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Welcome back, Sarah! ✨</h1>
+          <p class="text-gray-500 font-medium">Let's get your laundry looking fresh and clean.</p>
         </div>
 
-        <!-- KPI Cards -->
+        <!-- KPI Cards for User -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-brand-primary">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-gray-500 text-sm font-medium mb-1">Eco Points</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">450</p>
+                <p class="text-brand-primary text-xs font-semibold mt-1">Earth Saver Tier</p>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-brand-light/20 flex items-center justify-center text-brand-primary"><i class="fas fa-leaf"></i></div>
+            </div>
+          </div>
           <div class="glass-card rounded-3xl p-6 border-l-4 border-l-blue-500">
             <div class="flex justify-between items-start">
               <div>
-                <p class="text-gray-500 text-sm font-medium mb-1">Today's Revenue</p>
-                <p class="text-3xl font-bold text-gray-900 dark:text-white">$845.00</p>
-                <p class="text-brand-primary text-xs font-semibold mt-1"><i class="fas fa-arrow-up"></i> 12% from yesterday</p>
-              </div>
-            </div>
-          </div>
-          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-yellow-500">
-            <div class="flex justify-between items-start">
-              <div>
                 <p class="text-gray-500 text-sm font-medium mb-1">Active Orders</p>
-                <p class="text-3xl font-bold text-gray-900 dark:text-white">24</p>
-                <p class="text-yellow-600 text-xs font-semibold mt-1">5 Pending Pickup</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">1</p>
+                <p class="text-blue-500 text-xs font-semibold mt-1">In Progress</p>
               </div>
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500"><i class="fas fa-box-open"></i></div>
             </div>
           </div>
           <div class="glass-card rounded-3xl p-6 border-l-4 border-l-purple-500">
             <div class="flex justify-between items-start">
               <div>
-                <p class="text-gray-500 text-sm font-medium mb-1">New Customers</p>
+                <p class="text-gray-500 text-sm font-medium mb-1">Total Washes</p>
                 <p class="text-3xl font-bold text-gray-900 dark:text-white">12</p>
-                <p class="text-brand-primary text-xs font-semibold mt-1">This week</p>
+                <p class="text-purple-500 text-xs font-semibold mt-1">Since joined</p>
               </div>
+              <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-500"><i class="fas fa-tshirt"></i></div>
             </div>
           </div>
-          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-brand-primary">
+          <div class="glass-card rounded-3xl p-6 border-l-4 border-l-yellow-500 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="document.querySelector('[data-page=\'rewards\']').click()">
             <div class="flex justify-between items-start">
               <div>
-                <p class="text-gray-500 text-sm font-medium mb-1">Eco Points Issued</p>
-                <p class="text-3xl font-bold text-brand-primary">1,250</p>
-                <p class="text-gray-500 text-xs font-semibold mt-1">Total: 45k points</p>
+                <p class="text-gray-500 text-sm font-medium mb-1">Available Rewards</p>
+                <p class="text-3xl font-bold text-gray-900 dark:text-white">2</p>
+                <p class="text-yellow-600 text-xs font-semibold mt-1">Tap to redeem</p>
               </div>
+              <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500"><i class="fas fa-ticket-alt"></i></div>
             </div>
           </div>
         </div>
 
-        <!-- Recent Orders & Alerts -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div class="lg:col-span-2 glass-card rounded-3xl p-6 md:p-8 dashboard-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="font-serif text-2xl font-bold">Needs Attention</h2>
-                <button class="text-sm font-semibold text-brand-primary hover:underline">View All Orders</button>
-            </div>
-            
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="border-b border-gray-100 dark:border-gray-800 text-sm text-gray-500">
-                            <th class="pb-3 font-semibold">Order ID</th>
-                            <th class="pb-3 font-semibold">Customer</th>
-                            <th class="pb-3 font-semibold">Status</th>
-                            <th class="pb-3 font-semibold text-right">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
-                        <tr>
-                            <td class="py-4 font-bold">#EW-0930</td>
-                            <td class="py-4">Sarah Jenkins</td>
-                            <td class="py-4"><span class="bg-red-100 text-red-600 dark:bg-red-900/30 px-3 py-1 rounded-full font-bold text-xs">Pending Pickup</span></td>
-                            <td class="py-4 text-right"><button class="text-brand-primary font-bold hover:underline">Assign Driver</button></td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 font-bold">#EW-0929</td>
-                            <td class="py-4">Marcus Cole</td>
-                            <td class="py-4"><span class="bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 px-3 py-1 rounded-full font-bold text-xs">Washing</span></td>
-                            <td class="py-4 text-right"><button class="text-gray-500 font-bold hover:text-brand-primary">Update</button></td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 font-bold">#EW-0925</td>
-                            <td class="py-4">John Doe</td>
-                            <td class="py-4"><span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 px-3 py-1 rounded-full font-bold text-xs">Ready for Delivery</span></td>
-                            <td class="py-4 text-right"><button class="text-brand-primary font-bold hover:underline">Dispatch</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-          </div>
+        <!-- Active Order Tracker -->
+        <div class="mb-8">
+            <h2 class="font-serif text-2xl font-bold mb-4">Current Order <span class="text-sm font-sans font-medium text-gray-500 ml-2">#EW-0930</span></h2>
+            <div class="glass-card rounded-3xl p-6 md:p-10 dashboard-card">
+                
+                <div class="flex justify-between items-center mb-10">
+                    <div>
+                        <h3 class="font-bold text-lg">Eco Wash & Fold</h3>
+                        <p class="text-sm text-gray-500">Estimated Delivery: Tomorrow, 2:00 PM</p>
+                    </div>
+                    <span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 px-4 py-1.5 rounded-full font-bold text-sm">Washing</span>
+                </div>
 
-          <!-- Quick Actions -->
-          <div class="glass-card rounded-3xl p-6 md:p-8 dashboard-card bg-brand-primary text-white border-none relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 opacity-10 text-[150px] pointer-events-none"><i class="fas fa-bolt"></i></div>
-            <h2 class="font-serif text-2xl font-bold mb-6 relative z-10 text-white">Quick Actions</h2>
-            <div class="space-y-3 relative z-10">
-                <button class="w-full flex items-center justify-between p-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors">
-                    <span><i class="fas fa-plus-circle mr-2"></i> Create Manual Order</span>
-                    <i class="fas fa-chevron-right text-sm"></i>
-                </button>
-                <button class="w-full flex items-center justify-between p-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors">
-                    <span><i class="fas fa-bullhorn mr-2"></i> Send Promo Email</span>
-                    <i class="fas fa-chevron-right text-sm"></i>
-                </button>
-                <button class="w-full flex items-center justify-between p-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-colors">
-                    <span><i class="fas fa-truck mr-2"></i> View Driver Map</span>
-                    <i class="fas fa-chevron-right text-sm"></i>
-                </button>
+                <!-- Stepper -->
+                <div class="relative w-full max-w-3xl mx-auto px-4 progress-line">
+                    <div class="flex justify-between items-center relative z-10">
+                        <!-- Step 1: Completed -->
+                        <div class="flex flex-col items-center text-center w-1/4">
+                            <div class="w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-lg mb-3 shadow-md">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="text-sm font-bold">Picked Up</p>
+                            <p class="text-xs text-gray-500">Today, 9:00 AM</p>
+                        </div>
+                        
+                        <!-- Step 2: Active -->
+                        <div class="flex flex-col items-center text-center w-1/4">
+                            <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg mb-3 shadow-md animate-pulse-slow border-4 border-blue-200 dark:border-blue-900">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <p class="text-sm font-bold text-blue-500">Washing</p>
+                            <p class="text-xs text-gray-500">In Progress</p>
+                        </div>
+
+                        <!-- Step 3: Pending -->
+                        <div class="flex flex-col items-center text-center w-1/4">
+                            <div class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-400 flex items-center justify-center font-bold text-lg mb-3">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                            <p class="text-sm font-bold text-gray-400">Folding</p>
+                        </div>
+
+                        <!-- Step 4: Pending -->
+                        <div class="flex flex-col items-center text-center w-1/4">
+                            <div class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-400 flex items-center justify-center font-bold text-lg mb-3">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <p class="text-sm font-bold text-gray-400">Delivery</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
         </div>
       </div>
 
-      <!-- MANAGE ORDERS PANEL -->
+      <!-- SCHEDULE WASH PANEL -->
+      <div id="panel-schedule" class="content-panel hidden">
+        <div class="mb-8">
+            <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Schedule a Wash</h1>
+            <p class="text-gray-500 font-medium">Select your services and preferred times.</p>
+        </div>
+        
+        <div class="glass-card rounded-3xl p-6 md:p-8 max-w-4xl mx-auto">
+            <form class="space-y-8">
+                
+                <!-- Service Selection -->
+                <div>
+                    <h3 class="font-bold text-xl mb-4">1. Choose Service</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="service" class="peer sr-only" checked>
+                            <div class="p-5 border-2 border-gray-200 dark:border-gray-700 rounded-2xl peer-checked:border-brand-primary peer-checked:bg-brand-primary/5 transition-all hover:bg-gray-50 dark:hover:bg-gray-800 text-center">
+                                <i class="fas fa-tshirt text-3xl text-brand-primary mb-3"></i>
+                                <h4 class="font-bold">Wash & Fold</h4>
+                                <p class="text-xs text-gray-500 mt-1">$2.50 / lb</p>
+                            </div>
+                            <div class="absolute top-3 right-3 text-brand-primary opacity-0 peer-checked:opacity-100"><i class="fas fa-check-circle text-xl"></i></div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="service" class="peer sr-only">
+                            <div class="p-5 border-2 border-gray-200 dark:border-gray-700 rounded-2xl peer-checked:border-brand-primary peer-checked:bg-brand-primary/5 transition-all hover:bg-gray-50 dark:hover:bg-gray-800 text-center">
+                                <i class="fas fa-user-tie text-3xl text-blue-500 mb-3"></i>
+                                <h4 class="font-bold">Dry Cleaning</h4>
+                                <p class="text-xs text-gray-500 mt-1">From $6.00 / item</p>
+                            </div>
+                            <div class="absolute top-3 right-3 text-brand-primary opacity-0 peer-checked:opacity-100"><i class="fas fa-check-circle text-xl"></i></div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="service" class="peer sr-only">
+                            <div class="p-5 border-2 border-gray-200 dark:border-gray-700 rounded-2xl peer-checked:border-brand-primary peer-checked:bg-brand-primary/5 transition-all hover:bg-gray-50 dark:hover:bg-gray-800 text-center">
+                                <i class="fas fa-bed text-3xl text-purple-500 mb-3"></i>
+                                <h4 class="font-bold">Bedding & Linens</h4>
+                                <p class="text-xs text-gray-500 mt-1">From $15.00 / item</p>
+                            </div>
+                            <div class="absolute top-3 right-3 text-brand-primary opacity-0 peer-checked:opacity-100"><i class="fas fa-check-circle text-xl"></i></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pickup & Delivery -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+                        <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-calendar-alt text-brand-primary"></i> Pickup Details</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Date</label>
+                                <input type="date" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-darkCard outline-none focus:border-brand-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Time Window</label>
+                                <select class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-darkCard outline-none focus:border-brand-primary">
+                                    <option>08:00 AM - 10:00 AM</option>
+                                    <option>10:00 AM - 12:00 PM</option>
+                                    <option>02:00 PM - 04:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+                        <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-truck text-brand-primary"></i> Delivery Details</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Date</label>
+                                <input type="date" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-darkCard outline-none focus:border-brand-primary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Time Window</label>
+                                <select class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-darkCard outline-none focus:border-brand-primary">
+                                    <option>08:00 AM - 10:00 AM</option>
+                                    <option>10:00 AM - 12:00 PM</option>
+                                    <option>02:00 PM - 04:00 PM</option>
+                                    <option>06:00 PM - 08:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes & Submit -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Special Instructions (Optional)</label>
+                    <textarea rows="2" placeholder="e.g. Please use unscented detergent, delicate wash for the red dress..." class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 outline-none focus:border-brand-primary resize-none"></textarea>
+                </div>
+
+                <div class="pt-4 flex justify-end">
+                    <button type="button" class="px-8 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg shadow-brand-primary/30 w-full sm:w-auto">Review Order & Checkout</button>
+                </div>
+            </form>
+        </div>
+      </div>
+
+      <!-- MY ORDERS PANEL -->
       <div id="panel-orders" class="content-panel hidden">
         <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Order Management</h1>
-            <p class="text-gray-500 font-medium">View and update customer laundry orders.</p>
+            <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Order History</h1>
+            <p class="text-gray-500 font-medium">Review your past and current laundry orders.</p>
           </div>
           <div class="flex gap-3">
-              <input type="text" placeholder="Search orders..." class="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkCard focus:ring-2 focus:ring-brand-primary outline-none">
-              <button class="px-4 py-2.5 bg-gray-100 dark:bg-gray-800 rounded-xl font-bold hover:bg-brand-primary hover:text-white transition-colors"><i class="fas fa-filter"></i> Filter</button>
+              <select class="px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkCard focus:ring-2 focus:ring-brand-primary outline-none font-medium">
+                  <option>All Orders</option>
+                  <option>Active</option>
+                  <option>Completed</option>
+              </select>
           </div>
         </div>
         
@@ -402,78 +528,47 @@
                         <tr class="text-sm text-gray-500">
                             <th class="p-5 font-semibold">Order ID</th>
                             <th class="p-5 font-semibold">Date</th>
-                            <th class="p-5 font-semibold">Customer</th>
                             <th class="p-5 font-semibold">Service</th>
                             <th class="p-5 font-semibold">Amount</th>
                             <th class="p-5 font-semibold">Status</th>
-                            <th class="p-5 font-semibold text-right">Update</th>
+                            <th class="p-5 font-semibold text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-800">
-                        <!-- Order Row -->
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
                             <td class="p-5 font-bold">#EW-0930</td>
-                            <td class="p-5 text-gray-500">Oct 14, 2026</td>
-                            <td class="p-5 font-medium">Sarah Jenkins</td>
-                            <td class="p-5">Wash & Fold</td>
-                            <td class="p-5 font-bold">$24.50</td>
+                            <td class="p-5 text-gray-500">Today</td>
+                            <td class="p-5 font-medium">Wash & Fold</td>
+                            <td class="p-5 font-bold text-gray-400">Calculating...</td>
                             <td class="p-5">
-                                <span class="bg-red-100 text-red-600 dark:bg-red-900/30 px-3 py-1 rounded-full font-bold text-xs">Pending Pickup</span>
+                                <span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 px-3 py-1 rounded-full font-bold text-xs">Washing</span>
                             </td>
                             <td class="p-5 text-right">
-                                <select class="border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs font-bold outline-none focus:border-brand-primary bg-white dark:bg-darkCard">
-                                    <option>Mark Processing</option>
-                                    <option>Assign Driver</option>
-                                    <option>Cancel</option>
-                                </select>
+                                <button class="text-brand-primary font-bold hover:underline">Track</button>
                             </td>
                         </tr>
-                        <!-- Order Row -->
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
-                            <td class="p-5 font-bold">#EW-0929</td>
-                            <td class="p-5 text-gray-500">Oct 13, 2026</td>
-                            <td class="p-5 font-medium">Marcus Cole</td>
-                            <td class="p-5">Dry Cleaning</td>
-                            <td class="p-5 font-bold">$65.00</td>
+                            <td class="p-5 font-bold">#EW-0872</td>
+                            <td class="p-5 text-gray-500">Oct 02, 2026</td>
+                            <td class="p-5 font-medium">Dry Cleaning</td>
+                            <td class="p-5 font-bold">$42.00</td>
                             <td class="p-5">
-                                <span class="bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 px-3 py-1 rounded-full font-bold text-xs">Washing</span>
+                                <span class="bg-brand-light/20 text-brand-primary dark:bg-brand-dark/30 px-3 py-1 rounded-full font-bold text-xs">Completed</span>
                             </td>
                             <td class="p-5 text-right">
-                                <select class="border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs font-bold outline-none focus:border-brand-primary bg-white dark:bg-darkCard">
-                                    <option>Mark Ready</option>
-                                    <option>Print Tag</option>
-                                </select>
+                                <button class="text-gray-400 font-bold hover:text-brand-primary">Receipt</button>
                             </td>
                         </tr>
-                        <!-- Order Row -->
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
-                            <td class="p-5 font-bold">#EW-0925</td>
-                            <td class="p-5 text-gray-500">Oct 12, 2026</td>
-                            <td class="p-5 font-medium">John Doe</td>
-                            <td class="p-5">Eco Wash & Fold</td>
-                            <td class="p-5 font-bold">$37.50</td>
+                            <td class="p-5 font-bold">#EW-0815</td>
+                            <td class="p-5 text-gray-500">Sep 15, 2026</td>
+                            <td class="p-5 font-medium">Wash & Fold</td>
+                            <td class="p-5 font-bold">$28.50</td>
                             <td class="p-5">
-                                <span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 px-3 py-1 rounded-full font-bold text-xs">Ready for Delivery</span>
+                                <span class="bg-brand-light/20 text-brand-primary dark:bg-brand-dark/30 px-3 py-1 rounded-full font-bold text-xs">Completed</span>
                             </td>
                             <td class="p-5 text-right">
-                                <select class="border border-gray-200 dark:border-gray-700 rounded-lg px-2 py-1 text-xs font-bold outline-none focus:border-brand-primary bg-white dark:bg-darkCard">
-                                    <option>Dispatch Driver</option>
-                                    <option>Mark Delivered</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <!-- Order Row -->
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
-                            <td class="p-5 font-bold">#EW-0889</td>
-                            <td class="p-5 text-gray-500">Sep 28, 2026</td>
-                            <td class="p-5 font-medium">John Doe</td>
-                            <td class="p-5">Dry Cleaning</td>
-                            <td class="p-5 font-bold">$45.00</td>
-                            <td class="p-5">
-                                <span class="bg-brand-light/20 text-brand-primary dark:bg-brand-dark/30 px-3 py-1 rounded-full font-bold text-xs">Delivered</span>
-                            </td>
-                            <td class="p-5 text-right">
-                                <button class="text-xs font-bold text-gray-400 hover:text-brand-primary">View Receipt</button>
+                                <button class="text-gray-400 font-bold hover:text-brand-primary">Receipt</button>
                             </td>
                         </tr>
                     </tbody>
@@ -485,125 +580,214 @@
         </div>
       </div>
 
-      <!-- CUSTOMERS PANEL -->
-      <div id="panel-customers" class="content-panel hidden">
+      <!-- ECO REWARDS PANEL -->
+      <div id="panel-rewards" class="content-panel hidden">
         <div class="mb-8">
-            <h1 class="font-serif text-3xl font-bold mb-2">Customer Database</h1>
-            <p class="text-gray-500 font-medium">Manage user accounts and view loyalty metrics.</p>
+            <h1 class="font-serif text-3xl font-bold mb-2">Eco Rewards</h1>
+            <p class="text-gray-500 font-medium">Earn points for choosing sustainable laundry and unlock perks.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Customer Card -->
-            <div class="glass-card rounded-3xl p-6 border-t-4 border-t-brand-primary">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-full bg-brand-light/20 flex items-center justify-center text-brand-primary font-bold text-lg">JD</div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Points Balance -->
+            <div class="md:col-span-2 glass-card rounded-3xl p-6 md:p-8 brand-gradient-bg text-white relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-[150px] pointer-events-none"><i class="fas fa-leaf"></i></div>
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
-                        <h3 class="font-bold text-lg">John Doe</h3>
-                        <p class="text-xs text-gray-500">john@example.com</p>
+                        <p class="text-white/80 font-medium mb-1">Your Balance</p>
+                        <h2 class="text-5xl font-bold font-serif mb-2 text-white">450 <span class="text-2xl font-sans">Pts</span></h2>
+                        <p class="text-sm font-medium bg-white/20 inline-block px-3 py-1 rounded-full text-white">Earth Saver Tier</p>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="flex justify-between text-sm mb-2 text-white">
+                            <span>Earth Saver</span>
+                            <span>Green Champ (500 pts)</span>
+                        </div>
+                        <div class="w-full bg-black/20 rounded-full h-3 mb-2">
+                            <div class="bg-white h-3 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <p class="text-xs text-white/80 text-right">Just 50 points to your next tier!</p>
                     </div>
                 </div>
-                <div class="space-y-2 mb-4">
-                    <div class="flex justify-between text-sm"><span class="text-gray-500">Lifetime Value:</span> <span class="font-bold">$420.00</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-500">Total Orders:</span> <span class="font-bold">14</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-500">Eco Points:</span> <span class="font-bold text-brand-primary">450</span></div>
-                </div>
-                <button class="w-full py-2 bg-gray-100 dark:bg-gray-800 rounded-xl text-sm font-bold hover:bg-brand-primary hover:text-white transition-colors">View Profile</button>
             </div>
-            
-            <!-- Customer Card -->
-            <div class="glass-card rounded-3xl p-6 border-t-4 border-t-gray-300">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg">SJ</div>
-                    <div>
-                        <h3 class="font-bold text-lg">Sarah Jenkins</h3>
-                        <p class="text-xs text-gray-500">sarah.j@example.com</p>
-                    </div>
-                </div>
-                <div class="space-y-2 mb-4">
-                    <div class="flex justify-between text-sm"><span class="text-gray-500">Lifetime Value:</span> <span class="font-bold">$24.50</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-500">Total Orders:</span> <span class="font-bold">1</span></div>
-                    <div class="flex justify-between text-sm"><span class="text-gray-500">Eco Points:</span> <span class="font-bold text-brand-primary">20</span></div>
-                </div>
-                <button class="w-full py-2 bg-gray-100 dark:bg-gray-800 rounded-xl text-sm font-bold hover:bg-brand-primary hover:text-white transition-colors">View Profile</button>
-            </div>
-        </div>
-      </div>
 
-      <!-- SERVICES & PRICING PANEL -->
-      <div id="panel-services" class="content-panel hidden">
-        <div class="mb-8 flex justify-between items-center">
-            <div>
-                <h1 class="font-serif text-3xl font-bold mb-2">Services & Pricing</h1>
-                <p class="text-gray-500 font-medium">Update the pricing and availability of your laundry services.</p>
+            <!-- Ways to Earn -->
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-center">
+                <h3 class="font-bold text-lg mb-4"><i class="fas fa-bolt text-yellow-500 mr-2"></i> How to Earn</h3>
+                <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                    <li class="flex justify-between border-b border-gray-100 dark:border-gray-800 pb-2"><span>Every wash</span> <span class="font-bold text-brand-primary">+10 pts</span></li>
+                    <li class="flex justify-between border-b border-gray-100 dark:border-gray-800 pb-2"><span>Return hangers</span> <span class="font-bold text-brand-primary">+20 pts</span></li>
+                    <li class="flex justify-between"><span>Refer a friend</span> <span class="font-bold text-brand-primary">+50 pts</span></li>
+                </ul>
             </div>
-            <button class="px-5 py-2.5 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-colors shadow-md"><i class="fas fa-plus"></i> Add Service</button>
         </div>
+
+        <h2 class="font-serif text-2xl font-bold mb-4">Available Perks</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="glass-card rounded-3xl p-6 flex flex-col">
-                <div class="w-12 h-12 rounded-xl bg-brand-light/20 text-brand-primary flex items-center justify-center text-xl mb-4"><i class="fas fa-tshirt"></i></div>
-                <h3 class="font-bold text-lg mb-1">Eco Wash & Fold</h3>
-                <p class="text-sm text-gray-500 mb-4 flex-grow">Standard machine wash using eco-friendly detergents. Charged by weight.</p>
+            <div class="glass-card rounded-3xl p-6 border-t-4 border-t-brand-primary">
+                <div class="w-12 h-12 rounded-xl bg-brand-light/20 text-brand-primary flex items-center justify-center text-xl mb-4"><i class="fas fa-tag"></i></div>
+                <h3 class="font-bold text-lg mb-1">10% Off Next Wash</h3>
+                <p class="text-sm text-gray-500 mb-4">Valid on any wash and fold order.</p>
                 <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <span class="font-bold text-xl">$2.50 <span class="text-sm font-medium text-gray-500">/ lb</span></span>
-                    <button class="text-sm font-bold text-brand-primary hover:underline">Edit Price</button>
+                    <span class="font-bold text-brand-primary">200 Pts</span>
+                    <button class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 text-sm font-bold rounded-lg hover:bg-brand-primary hover:text-white transition-colors">Redeem</button>
                 </div>
             </div>
-            <div class="glass-card rounded-3xl p-6 flex flex-col">
-                <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4"><i class="fas fa-user-tie"></i></div>
-                <h3 class="font-bold text-lg mb-1">Dry Cleaning</h3>
-                <p class="text-sm text-gray-500 mb-4 flex-grow">Non-toxic liquid CO2 cleaning for delicate garments and suits.</p>
+            <div class="glass-card rounded-3xl p-6 border-t-4 border-t-blue-500">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4"><i class="fas fa-tshirt"></i></div>
+                <h3 class="font-bold text-lg mb-1">1 Free Dry Clean</h3>
+                <p class="text-sm text-gray-500 mb-4">Get one garment dry cleaned for free.</p>
                 <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <span class="font-bold text-xl">$6.00+ <span class="text-sm font-medium text-gray-500">/ item</span></span>
-                    <button class="text-sm font-bold text-brand-primary hover:underline">Edit Price</button>
+                    <span class="font-bold text-brand-primary">400 Pts</span>
+                    <button class="px-4 py-1.5 bg-brand-primary text-white text-sm font-bold rounded-lg hover:bg-brand-dark transition-colors shadow-md">Redeem</button>
                 </div>
             </div>
-            <div class="glass-card rounded-3xl p-6 flex flex-col">
-                <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4"><i class="fas fa-bed"></i></div>
-                <h3 class="font-bold text-lg mb-1">Bedding & Linens</h3>
-                <p class="text-sm text-gray-500 mb-4 flex-grow">Deep clean for large items like comforters, duvets, and sheets.</p>
+            <div class="glass-card rounded-3xl p-6 border-t-4 border-t-gray-300 opacity-60">
+                <div class="w-12 h-12 rounded-xl bg-gray-200 dark:bg-gray-800 text-gray-500 flex items-center justify-center text-xl mb-4"><i class="fas fa-truck"></i></div>
+                <h3 class="font-bold text-lg mb-1">Free Express Delivery</h3>
+                <p class="text-sm text-gray-500 mb-4">Same-day turnaround for your order.</p>
                 <div class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <span class="font-bold text-xl">$15.00+ <span class="text-sm font-medium text-gray-500">/ item</span></span>
-                    <button class="text-sm font-bold text-brand-primary hover:underline">Edit Price</button>
+                    <span class="font-bold text-gray-500"><i class="fas fa-lock text-xs mr-1"></i> 600 Pts</span>
+                    <button class="px-4 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-400 text-sm font-bold rounded-lg cursor-not-allowed">Locked</button>
                 </div>
             </div>
         </div>
       </div>
 
-      <!-- ANALYTICS PANEL (Placeholder) -->
-      <div id="panel-analytics" class="content-panel hidden">
-        <div class="mb-8">
-            <h1 class="font-serif text-3xl font-bold mb-2">Revenue Analytics</h1>
-            <p class="text-gray-500 font-medium">Business performance metrics.</p>
+      <!-- MY PROFILE PANEL -->
+      <div id="panel-profile" class="content-panel hidden">
+        <div class="mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="font-serif text-3xl font-bold mb-2">My Profile</h1>
+                <p class="text-gray-500 font-medium">Manage your personal information and addresses.</p>
+            </div>
         </div>
-        <div class="glass-card rounded-3xl p-10 text-center flex flex-col items-center justify-center min-h-[400px] border-dashed border-2 border-gray-300 dark:border-gray-700">
-            <i class="fas fa-chart-bar text-6xl text-gray-300 dark:text-gray-700 mb-4"></i>
-            <h3 class="text-xl font-bold text-gray-400 mb-2">Advanced Charting Coming Soon</h3>
-            <p class="text-gray-500 max-w-md">The analytics module is currently being integrated with the payment gateway to provide real-time revenue graphs.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Profile Info -->
+            <div class="lg:col-span-2 glass-card rounded-3xl p-6 md:p-8">
+                <div class="flex items-center gap-5 mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
+                    <div class="relative">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=2E7D32&color=fff&size=100" alt="User" class="w-20 h-20 md:w-24 md:h-24 rounded-full shadow-lg">
+                        <button class="absolute bottom-0 right-0 w-8 h-8 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-brand-primary transition-colors shadow-sm">
+                            <i class="fas fa-camera text-sm"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-2xl mb-1">Sarah Jenkins</h2>
+                        <p class="text-gray-500 text-sm">Member since Jan 2026</p>
+                    </div>
+                </div>
+
+                <form class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">First Name</label>
+                            <input type="text" value="Sarah" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
+                            <input type="text" value="Jenkins" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                            <input type="email" value="sarah.j@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Phone Number</label>
+                            <input type="tel" value="+1 (555) 987-6543" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        </div>
+                    </div>
+                    <div class="pt-4 flex justify-end">
+                        <button type="button" class="px-6 py-3 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-all">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Saved Addresses -->
+            <div class="glass-card rounded-3xl p-6 md:p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-bold text-xl">Saved Addresses</h3>
+                    <button class="text-brand-primary hover:underline text-sm font-bold"><i class="fas fa-plus"></i> Add</button>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- Home -->
+                    <div class="p-4 border-2 border-brand-primary bg-brand-primary/5 rounded-2xl relative">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fas fa-home text-brand-primary"></i>
+                            <h4 class="font-bold">Home (Default)</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">123 Eco Blvd, Apt 4B<br>New York, NY 10001</p>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <button class="text-gray-400 hover:text-brand-primary transition-colors"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Work -->
+                    <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-2xl relative hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fas fa-building text-gray-400"></i>
+                            <h4 class="font-bold text-gray-700 dark:text-gray-300">Office</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">456 Corporate Way, Suite 100<br>New York, NY 10005</p>
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <button class="text-gray-400 hover:text-brand-primary transition-colors"><i class="fas fa-pen"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
 
       <!-- SETTINGS PANEL -->
       <div id="panel-settings" class="content-panel hidden">
         <div class="mb-8">
-            <h1 class="font-serif text-3xl font-bold mb-2">System Settings</h1>
-            <p class="text-gray-500 font-medium">Configure operational parameters.</p>
+            <h1 class="font-serif text-3xl font-bold mb-2">Preferences</h1>
+            <p class="text-gray-500 font-medium">Customize your EcoWash experience.</p>
         </div>
         <div class="glass-card rounded-3xl p-6 md:p-8 max-w-2xl">
-            <form class="space-y-6">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Admin Contact Email</label>
-                    <input type="email" value="admin@ecowash.com" class="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary">
-                </div>
+            <h3 class="font-bold text-xl mb-6">Notifications</h3>
+            <form class="space-y-4 mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
                 <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
                     <div>
-                        <p class="font-bold">Accept New Orders</p>
-                        <p class="text-xs text-gray-500">Toggle customer checkout availability</p>
+                        <p class="font-bold">SMS Order Updates</p>
+                        <p class="text-xs text-gray-500">Get text alerts when driver is arriving</p>
                     </div>
                     <div class="w-12 h-6 bg-brand-primary rounded-full relative cursor-pointer">
                         <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
                     </div>
                 </div>
-                <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <button type="button" class="px-8 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-all">Save System Config</button>
+                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+                    <div>
+                        <p class="font-bold">Email Promotions</p>
+                        <p class="text-xs text-gray-500">Receive special offers and discounts</p>
+                    </div>
+                    <div class="w-12 h-6 bg-gray-300 dark:bg-gray-700 rounded-full relative cursor-pointer">
+                        <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+                    </div>
+                </div>
+            </form>
+
+            <h3 class="font-bold text-xl mb-6">Laundry Defaults</h3>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Default Detergent</label>
+                    <select class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        <option>Eco Scented (Standard)</option>
+                        <option>Unscented / Hypoallergenic</option>
+                        <option>Lavender Essential Oils</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Fabric Softener</label>
+                    <select class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        <option>Yes, use Eco-Softener</option>
+                        <option selected>No Fabric Softener</option>
+                    </select>
+                </div>
+                <div class="pt-4">
+                    <button type="button" class="px-8 py-3 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-all">Save Preferences</button>
                 </div>
             </form>
         </div>
@@ -613,7 +797,7 @@
   </div>
 
   <script>
-    // Sign Out redirect to login
+    // Log Out redirect to login
     function performSignOut() {
       window.location.href = "login.html";
     }
@@ -671,10 +855,10 @@
     const links = document.querySelectorAll('.sidebar-link');
     const panels = { 
         overview: document.getElementById('panel-overview'), 
+        schedule: document.getElementById('panel-schedule'), 
         orders: document.getElementById('panel-orders'), 
-        customers: document.getElementById('panel-customers'), 
-        services: document.getElementById('panel-services'), 
-        analytics: document.getElementById('panel-analytics'), 
+        rewards: document.getElementById('panel-rewards'), 
+        profile: document.getElementById('panel-profile'),
         settings: document.getElementById('panel-settings') 
     };
 

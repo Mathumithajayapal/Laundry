@@ -7,7 +7,7 @@
   <title>EcoWash | Admin Dashboard</title>
 
   <!-- Google Fonts: Playfair Display + Poppins -->
-         <link rel="icon" type="image/jpeg" href="Images\laundry (4).jpg">
+  <link rel="icon" type="image/jpeg" href="Images\laundry (4).jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -193,7 +193,7 @@
       .ecowash-logo { font-size: 1.875rem; }
     }
 
-    .dark input, .dark select {
+    .dark input, .dark select, .dark textarea {
       background-color: #121212 !important;
       color: #ffffff !important;
       border-color: #2a2a2a !important;
@@ -234,6 +234,7 @@
                 <p class="text-sm font-bold text-gray-900 dark:text-white">Admin User</p>
                 <p class="text-xs text-gray-500">admin@ecowash.com</p>
               </div>
+              <button onclick="document.querySelector('[data-page=\'profile\']').click()" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition">My Profile</button>
               <button id="dropdownSignOutBtn" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition">Sign Out</button>
             </div>
           </div>
@@ -257,6 +258,8 @@
         <a data-page="services" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-tags w-5 text-brand-primary"></i><span>Services & Pricing</span></a>
         
         <a data-page="analytics" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-chart-line w-5 text-brand-primary"></i><span>Analytics</span></a>
+
+        <a data-page="profile" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-user-circle w-5 text-brand-primary"></i><span>My Profile</span></a>
         
         <a data-page="settings" class="sidebar-link flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold text-gray-600"><i class="fas fa-cog w-5 text-brand-primary"></i><span>System Settings</span></a>
       </nav>
@@ -274,8 +277,9 @@
       <!-- OVERVIEW PANEL -->
       <div id="panel-overview" class="content-panel">
         <div class="mb-8">
-          <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Admin Dashboard</h1>
-          <p class="text-gray-500 font-medium">Real-time overview of EcoWash operations.</p>
+          <!-- Personalized Welcome Message Added Here -->
+          <h1 class="font-serif text-3xl md:text-4xl font-bold mb-2">Welcome back, Admin! 👋</h1>
+          <p class="text-gray-500 font-medium">Here's your real-time overview of EcoWash operations.</p>
         </div>
 
         <!-- KPI Cards -->
@@ -568,7 +572,7 @@
         </div>
       </div>
 
-      <!-- ANALYTICS PANEL (Placeholder) -->
+      <!-- ANALYTICS PANEL -->
       <div id="panel-analytics" class="content-panel hidden">
         <div class="mb-8">
             <h1 class="font-serif text-3xl font-bold mb-2">Revenue Analytics</h1>
@@ -578,6 +582,60 @@
             <i class="fas fa-chart-bar text-6xl text-gray-300 dark:text-gray-700 mb-4"></i>
             <h3 class="text-xl font-bold text-gray-400 mb-2">Advanced Charting Coming Soon</h3>
             <p class="text-gray-500 max-w-md">The analytics module is currently being integrated with the payment gateway to provide real-time revenue graphs.</p>
+        </div>
+      </div>
+
+      <!-- NEW PROFILE PANEL -->
+      <div id="panel-profile" class="content-panel hidden">
+        <div class="mb-8">
+            <h1 class="font-serif text-3xl font-bold mb-2">My Profile</h1>
+            <p class="text-gray-500 font-medium">Manage your personal information and account preferences.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Profile Card Overview -->
+            <div class="md:col-span-1 glass-card rounded-3xl p-6 flex flex-col items-center text-center border-t-4 border-t-brand-primary">
+                <div class="w-28 h-28 rounded-full bg-brand-light/20 flex items-center justify-center text-brand-primary font-bold text-4xl mb-4 relative">
+                    <i class="fas fa-shield-alt"></i>
+                    <button class="absolute bottom-0 right-0 w-8 h-8 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-brand-primary transition-colors shadow-sm">
+                        <i class="fas fa-camera text-sm"></i>
+                    </button>
+                </div>
+                <h2 class="font-bold text-xl mb-1">Admin User</h2>
+                <p class="text-sm text-gray-500 mb-4">Super Administrator</p>
+                <div class="w-full pt-4 border-t border-gray-100 dark:border-gray-800 text-left space-y-3">
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Email:</span> <span class="font-bold">admin@ecowash.com</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Phone:</span> <span class="font-bold">+1 (555) 123-4567</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Location:</span> <span class="font-bold">New York, USA</span></div>
+                </div>
+            </div>
+
+            <!-- Profile Details Form -->
+            <div class="md:col-span-2 glass-card rounded-3xl p-6 md:p-8">
+                <h3 class="font-bold text-xl mb-6">Edit Information</h3>
+                <form class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">First Name</label>
+                            <input type="text" value="Admin" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
+                            <input type="text" value="User" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                        <input type="email" value="admin@ecowash.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Biography</label>
+                        <textarea rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 outline-none focus:border-brand-primary resize-none transition-colors">Managing operations and system configuration for EcoWash.</textarea>
+                    </div>
+                    <div class="pt-4 flex justify-end">
+                        <button type="button" class="px-6 py-3 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-dark transition-all">Save Changes</button>
+                    </div>
+                </form>
+            </div>
         </div>
       </div>
 
@@ -667,14 +725,15 @@
         overlay.classList.add('hidden'); 
     });
 
-    // Panel Routing Logic
+    // Panel Routing Logic - Updated with Profile
     const links = document.querySelectorAll('.sidebar-link');
     const panels = { 
         overview: document.getElementById('panel-overview'), 
         orders: document.getElementById('panel-orders'), 
         customers: document.getElementById('panel-customers'), 
         services: document.getElementById('panel-services'), 
-        analytics: document.getElementById('panel-analytics'), 
+        analytics: document.getElementById('panel-analytics'),
+        profile: document.getElementById('panel-profile'), // <-- added new profile logic
         settings: document.getElementById('panel-settings') 
     };
 
